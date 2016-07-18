@@ -1,5 +1,6 @@
 <% @lists.each do |list| %>
   <%= list.title %>
+  <%= link_to "Edit", edit_list_path(list) %>
 <% end %>
 
 <%= link_to "Add List", new_list_path %>
