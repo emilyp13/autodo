@@ -1,7 +1,12 @@
 <% @lists.each do |list| %>
   <%= list.title %>
+  <%= link_to "Add Card", new_list_card_path(list.id) %>
   <%= link_to "Edit", edit_list_path(list) %>
   <%= link_to "Delete", list, method: :delete, data: { confirm: 'Are you sure?' }  %>
+  <% @cards = Card.where(list_id: list.id) %>
+  <% @cards.each do |card| %>
+    <%= card.text %>
+  <% end %>
 <% end %>
 
 <%= link_to "Add List", new_list_path %>
