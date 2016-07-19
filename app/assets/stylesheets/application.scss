@@ -1,2 +1,56 @@
-// @import "*";
+@import "colors";
 
+* {
+  box-sizing: border-box;
+}
+
+html,body,#board {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: $list-title;
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.list-block {
+  height: 100%;
+  white-space: nowrap;
+}
+
+.list {
+  display: inline-block;
+  height: 100%;
+  overflow: auto;
+  padding: 0 20px;
+  position: relative;
+  vertical-align: top;
+  white-space: normal;
+  width: 33%;
+}
+
+.list:not(:last-child):after {
+  background: linear-gradient(to bottom, $ligth-grey-white 0%, $grey-white 50%, $ligth-grey-white 100%) fixed;
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
+  height: 99%;
+}
+
+.card {
+  background: $background;
+  border: 1px solid ;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
+  margin: 0 0 10px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  padding: 10px 10px 10px 15px;
+}
