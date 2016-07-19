@@ -32,9 +32,9 @@ class Board extends Component {
   });
 
   return(
-    <ul>
+    <div className="list-block">
     {lists}
-    </ul>
+    </div>
   );
   };
 };
