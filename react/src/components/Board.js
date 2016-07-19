@@ -27,7 +27,6 @@ class Board extends Component {
           key={list.id}
           id={list.id}
           title={list.title}
-          cards={list.cards}
         />
       );
   });

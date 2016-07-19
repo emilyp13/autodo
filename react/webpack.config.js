@@ -15,7 +15,7 @@ var config = {
       }
     ]
   },
-  devtool: 'eval-source-map'
+  devtool: 'inline-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {

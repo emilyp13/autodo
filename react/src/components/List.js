@@ -24,13 +24,12 @@ class List extends Component {
     let cards = this.state.cards.map(card => {
       return(
         <Card
-          id={card.id}
           key={card.id}
+          id={card.id}
           text={card.text}
         />
       );
     });
-
     return(
       <ul>
       {this.props.title}
