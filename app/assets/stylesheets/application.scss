@@ -1,4 +1,4 @@
-// @import "*";
+@import "colors";
 
 * {
   box-sizing: border-box;
@@ -50,7 +50,7 @@ h1 {
   margin: 0 0 10px;
   overflow: auto;
   position: relative;
-  z-index: 1;
   width: 100%;
+  z-index: 1;
   padding: 10px 10px 10px 15px;
 }
