@@ -5,7 +5,7 @@
   <%= link_to "Delete", list, method: :delete, data: { confirm: 'Are you sure?' }  %>
   <% @cards = Card.where(list_id: list.id) %>
   <% @cards.each do |card| %>
-    <%= card.text %>
+    <%= link_to card.text, edit_card_path(card) %>
   <% end %>
 <% end %>
 
