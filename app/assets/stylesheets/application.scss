@@ -11,46 +11,46 @@ html,body,#board {
 }
 
 h1 {
-  font-weight: 200;
-  color: #3b414c;
+  color: $list-title;
   font-size: 20px;
+  font-weight: 200;
 }
 
 .list-block {
-  white-space: nowrap;
   height: 100%;
+  white-space: nowrap;
 }
 
 .list {
-  position: relative;
   display: inline-block;
+  height: 100%;
+  overflow: auto;
+  padding: 0 20px;
+  position: relative;
   vertical-align: top;
   white-space: normal;
-  height: 100%;
   width: 33%;
-  padding: 0 20px;
-  overflow: auto;
 }
 
 .list:not(:last-child):after {
-  content: "";
+  background: linear-gradient(to bottom, $ligth-grey-white 0%, $grey-white 50%, $ligth-grey-white 100%) fixed;
+  content: '';
   position: absolute;
-  top: 0;
   right: 0;
+  top: 0;
   width: 1px;
   height: 99%;
-  background: linear-gradient(to bottom, #eee 0%, #ccc 50%, #eee 100%) fixed;
 }
 
 .card {
+  background: $background;
+  border: 1px solid ;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
+  margin: 0 0 10px;
+  overflow: auto;
   position: relative;
   z-index: 1;
-  background: #fff;
   width: 100%;
   padding: 10px 10px 10px 15px;
-  margin: 0 0 10px 0;
-  overflow: auto;
-  border: 1px solid #e5e5df;
-  border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(0, 0 , 0 , 0.25);
 }
