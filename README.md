@@ -7,7 +7,7 @@
 ###My breakable toy is a stripped-down Trello clone using React and Rails. For my reach stories, I hope to implement some of my own personal features.
 
 ##MVP ERD:
-![alt text](https://github.com/emilyp13/breakable_toy/app/assets/images/mvp_bt.tiff "MVP ERD")
+![alt text](https://github.com/emilyp13/breakable_toy/app/assets/images/mvp_bt.png "MVP ERD")
 
 ###Card User Stories
 
@@ -91,7 +91,7 @@ so that I can organize my cards
 ```
 
 ##Reach ERD - Acceptance Stories TBD:
-![alt text](https://github.com/emilyp13/breakable_toy/app/assets/images/reach_bt.tiff "Reach ERD")
+![alt text](https://github.com/emilyp13/breakable_toy/app/assets/images/reach_bt.png "Reach ERD")
 
 ###Additional Card Stores
 ```
