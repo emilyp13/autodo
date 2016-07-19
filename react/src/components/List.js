@@ -7,7 +7,6 @@ class List extends Component {
     this.state = {
       cards: []
     };
-    this.handleNewCardClick = this.handleNewCardClick.bind(this);
   }
 
   componentDidMount() {
@@ -19,10 +18,6 @@ class List extends Component {
     .done(data => {
       this.setState({ cards: data.cards });
     });
-  }
-
-  handleNewCardClick() {
-    debugger;
   }
 
   render() {
@@ -40,8 +35,6 @@ class List extends Component {
         <h1>{this.props.title}</h1>
         <div className="card-block">
           {cards}
-          <input type="text" ref="new-card-input"/>
-          <input type="button" value="Add Card" onClick={this.handleNewCardClick} />
         </div>
       </div>
     );
