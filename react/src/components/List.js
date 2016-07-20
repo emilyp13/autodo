@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Card from './Card.js'
+import CardForm from './CardForm.js'
 
 class List extends Component {
   constructor(props) {
@@ -7,17 +8,38 @@ class List extends Component {
     this.state = {
       cards: []
     };
+
+    this.handleCardSubmit = this.handleCardSubmit.bind(this)
+    this.populateCards = this.populateCards.bind(this)
+    this.getCards = this.getCards.bind(this)
   }
 
-  componentDidMount() {
+  handleCardSubmit(card) {
+    $.ajax({
+      url: "/api/lists/#{this.props.id}/cards/new",
+      dataType: 'application/json',
+      type: 'POST',
+      data: card,
+      success: this.populateCards
+    })
+    this.getCards();
+  }
+
+  populateCards(data){
+    this.setState({ cards: data.cards });
+  }
+
+  getCards(){
     $.ajax({
       method: "GET",
       url: "/api/lists/" + this.props.id + "/cards",
-      contentType: "application/json"
+      contentType: "application/json",
+      success: this.populateCards
     })
-    .done(data => {
-      this.setState({ cards: data.cards });
-    });
+  }
+
+  componentDidMount() {
+    this.getCards();
   }
 
   render() {
@@ -35,6 +57,7 @@ class List extends Component {
         <h1>{this.props.title}</h1>
         <div className="card-block">
           {cards}
+          <CardForm onCardSubmit={this.handleCardSubmit} list_id={this.props.id}/>
         </div>
       </div>
     );
