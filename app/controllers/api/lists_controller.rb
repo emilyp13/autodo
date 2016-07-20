@@ -4,9 +4,6 @@ class Api::ListsController < ApiController
     render json: { lists: lists }, status: :ok
   end
 
-  def new
-  end
-
   def create
     @card = Card.new(text: params[:text])
     @card.list = List.find(params[:list_id])

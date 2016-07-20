@@ -6,4 +6,11 @@ class Api::CardsController < ApiController
     end
     render json: { cards: cards }, status: :ok
   end
+
+  def destroy
+    @card = Card.find(params[:id])
+    @card.destroy
+    cards = Card.where(list_id: @card.list_id)
+    render json: { cards: cards }, status: :ok
+  end
 end

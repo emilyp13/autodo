@@ -12,6 +12,7 @@ class List extends Component {
     this.handleCardSubmit = this.handleCardSubmit.bind(this)
     this.populateCards = this.populateCards.bind(this)
     this.getCards = this.getCards.bind(this)
+    this.handleCardDelete = this.handleCardDelete.bind(this)
   }
 
   handleCardSubmit(card) {
@@ -38,6 +39,14 @@ class List extends Component {
     })
   }
 
+  handleCardDelete(deletedCardId) {
+    $.ajax({
+      url: "api/cards/" + deletedCardId,
+      method: 'DELETE',
+      success: this.getCards
+    })
+  }
+
   componentDidMount() {
     this.getCards();
   }
@@ -49,6 +58,7 @@ class List extends Component {
           key={card.id}
           id={card.id}
           text={card.text}
+          onDelete={this.handleCardDelete}
         />
       );
     });
