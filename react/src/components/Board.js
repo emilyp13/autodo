@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import List from './List.js'
 
 class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lists: []
+      lists: [],
+      cards: []
     };
   }
 
@@ -39,4 +40,8 @@ class Board extends Component {
   };
 };
 
+Board.propTypes = {
+  lists: PropTypes.arrayOf(PropTypes.object),
+  cards: PropTypes.arrayOf(PropTypes.object)
+};
 export default Board;
