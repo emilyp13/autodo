@@ -6,7 +6,8 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lists: []
+      lists: [],
+      cards: []
     };
 
     this.handleListSubmit = this.handleListSubmit.bind(this)
@@ -30,7 +31,7 @@ class Board extends Component {
   }
 
   populateLists(data){
-    this.setState({ lists: data.lists });
+    this.setState({ lists: data.lists, cards: data.cards });
   }
 
   getLists(){

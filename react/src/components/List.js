@@ -17,7 +17,7 @@ class List extends Component {
 
   handleCardSubmit(card) {
     $.ajax({
-      url: "/api/lists/#{this.props.id}/cards/new",
+      url: "/api/cards",
       dataType: 'application/json',
       type: 'POST',
       data: card,
