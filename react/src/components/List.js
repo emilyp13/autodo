@@ -69,8 +69,10 @@ class List extends Component {
     });
     return(
       <div className="list">
-        <h1>{this.props.title}</h1>
-        <button type="submit" onClick={this.deleteList}> Delete</button>
+        <div className="list-header">
+        {this.props.title}
+        <i className="fa fa-trash-o" type="submit" onClick={this.deleteList}></i>
+        </div>
         <div className="card-block">
           {cards}
           <CardForm onCardSubmit={this.handleCardSubmit} list_id={this.props.id}/>

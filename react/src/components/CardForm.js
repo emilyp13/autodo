@@ -27,8 +27,8 @@ class CardForm extends Component {
   render() {
     return(
       <form className="cardForm" onSubmit={this.handleSubmit}>
-        <input id={'text-input-' + this.props.list_id} type="text" placeholder="Say something..." value={this.state.text} onChange={this.handleTextChange} />
-        <input id={'create-card-button-' + this.props.list_id} type="submit" value="Post" />
+        <input className="input" type="text" placeholder="Add a new card..." value={this.state.text} onChange={this.handleTextChange} />
+        <input className="submit-button" type="submit" value="Add Card" />
       </form>
     );
   };

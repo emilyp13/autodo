@@ -14,7 +14,7 @@ class Card extends Component {
     return(
       <div className="card">
       {this.props.text}
-      <button type="submit" onClick={this.deleteCard}> Delete</button>
+      <i className="fa fa-trash-o" type="submit" onClick={this.deleteCard}></i>
       </div>
     );
   };
