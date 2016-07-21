@@ -15,6 +15,10 @@ i {
   padding-top: 5px;
 }
 
+input[type=checkbox]{
+  margin: 0;
+}
+
 .header {
   position: fixed;
   width: 100%;
@@ -60,7 +64,23 @@ i {
   height: 99%;
 }
 
-.card {
+.completed-card {
+  color: $grey;
+  text-decoration: line-through;
+  background: $background;
+  border: 1px solid ;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
+  margin: 0 0 10px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  padding: 10px 10px 10px 15px;
+}
+
+.incomplete-card {
+  color: black;
   background: $background;
   border: 1px solid ;
   border-radius: 3px;
@@ -88,4 +108,8 @@ i {
 
 .input {
   width: 50%;
+}
+
+.card-text{
+  padding-left: 10px;
 }
