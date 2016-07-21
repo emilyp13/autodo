@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import List from './List.js'
+import ListForm from './ListForm.js'
 
 class Board extends Component {
   constructor(props) {
@@ -7,16 +8,39 @@ class Board extends Component {
     this.state = {
       lists: []
     };
+
+    this.handleListSubmit = this.handleListSubmit.bind(this)
+    this.populateLists = this.populateLists.bind(this)
+    this.getLists = this.getLists.bind(this)
   }
 
   componentDidMount() {
+    this.getLists();
+  }
+
+  handleListSubmit(list) {
+    $.ajax({
+      url: "/api/lists",
+      dataType: 'application/json',
+      type: 'POST',
+      data: list,
+      success: this.populateLists
+    })
+    this.getLists();
+  }
+
+  populateLists(data){
+    this.setState({ lists: data.lists });
+  }
+
+  getLists(){
     $.ajax({
       method: "GET",
       url: "/api/lists",
       contentType: "application/json"
     })
     .done(data => {
-      this.setState({ lists: data.lists });
+      this.populateLists(data);
     });
   }
 
@@ -34,6 +58,7 @@ class Board extends Component {
   return(
     <div className="list-block">
     {lists}
+    <ListForm onListSubmit={this.handleListSubmit}/>
     </div>
   );
   };
