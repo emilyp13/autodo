@@ -13,11 +13,12 @@ class List extends Component {
     this.populateCards = this.populateCards.bind(this)
     this.getCards = this.getCards.bind(this)
     this.handleCardDelete = this.handleCardDelete.bind(this)
+    this.deleteList = this.deleteList.bind(this)
   }
 
   handleCardSubmit(card) {
     $.ajax({
-      url: "/api/lists/#{this.props.id}/cards/new",
+      url: "/api/cards",
       dataType: 'application/json',
       type: 'POST',
       data: card,
@@ -51,6 +52,10 @@ class List extends Component {
     this.getCards();
   }
 
+  deleteList() {
+    this.props.onDelete(this.props.id);
+  }
+
   render() {
     let cards = this.state.cards.map(card => {
       return(
@@ -65,6 +70,7 @@ class List extends Component {
     return(
       <div className="list">
         <h1>{this.props.title}</h1>
+        <button type="submit" onClick={this.deleteList}> Delete</button>
         <div className="card-block">
           {cards}
           <CardForm onCardSubmit={this.handleCardSubmit} list_id={this.props.id}/>
