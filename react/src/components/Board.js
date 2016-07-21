@@ -32,7 +32,7 @@ class Board extends Component {
       this.setState(update(this.state, {
         cards: {
           [cardIndex]: {
-            status: {$set: listId}
+            list_id: {$set: listId}
           }
         }
       }));

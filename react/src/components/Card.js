@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DragSource } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 import constants from './constants';
 
 const cardDragSpec = {
@@ -10,9 +10,22 @@ const cardDragSpec = {
   }
 }
 
+const cardDropSpec = {
+  hover(props, monitor) {
+    const draggedId = monitor.getItem().id;
+    props.cardCallbacks.updatePosition(draggedId, props.id);
+  }
+}
+
 let collectDrag = (connect, monitor) => {
   return {
     connectDragSource: connect.dragSource()
+  };
+}
+
+let collectDrop = (connect, monitor) => {
+  return {
+    connectDropTarget: connect.dropTarget(),
   };
 }
 
@@ -21,7 +34,8 @@ class Card extends Component {
     super(props);
     this.state = {
       list_id: props.list_id
-    }
+    };
+
     this.deleteCard = this.deleteCard.bind(this)
   }
 
@@ -30,14 +44,14 @@ class Card extends Component {
   }
 
   render() {
-    const { connectDragSource } = this.props;
+    const { connectDragSource, connectDropTarget } = this.props;
 
-    return connectDragSource(
+    return connectDropTarget(connectDragSource(
       <div className="card">
       {this.props.text}
       <button type="submit" onClick={this.deleteCard}> Delete</button>
       </div>
-    );
+    ));
   };
 };
 
@@ -45,8 +59,11 @@ Card.propTypes = {
   id: PropTypes.number,
   text: PropTypes.string.isRequired,
   cardCallbacks: PropTypes.object,
-  connectDragSource: PropTypes.func.isRequired
+  connectDragSource: PropTypes.func.isRequired,
+  connectDropTarget: PropTypes.func.isRequired
 }
 
+const dragHighOrderCard = DragSource(constants.CARD, cardDragSpec, collectDrag)(Card);
+const dragDropHighOrderCard = DropTarget(constants.CARD, cardDropSpec, collectDrop)(dragHighOrderCard);
 
-export default DragSource(constants.CARD, cardDragSpec, collectDrag)(Card);
+export default dragDropHighOrderCard;
