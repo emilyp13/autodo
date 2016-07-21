@@ -20,9 +20,6 @@ let collect = (connect, monitor) => {
 class List extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cards: []
-    };
 
     this.handleCardSubmit = this.handleCardSubmit.bind(this)
     this.populateCards = this.populateCards.bind(this)
@@ -68,7 +65,7 @@ class List extends Component {
 
   render() {
     const { connectDropTarget } = this.props;
-    let cards = this.state.cards.map(card => {
+    let cards = this.props.cards.map(card => {
       return(
         <Card
           key={card.id}

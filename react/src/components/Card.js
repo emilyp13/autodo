@@ -5,7 +5,8 @@ import constants from './constants';
 const cardDragSpec = {
   beginDrag(props) {
     return {
-      id: props.id
+      id: props.id,
+      list_id: props.list_id
     }
   }
 }
@@ -32,10 +33,6 @@ let collectDrop = (connect, monitor) => {
 class Card extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      list_id: props.list_id
-    };
-
     this.deleteCard = this.deleteCard.bind(this)
   }
 
