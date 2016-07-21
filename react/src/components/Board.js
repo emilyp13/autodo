@@ -29,7 +29,12 @@ class Board extends Component {
     let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
     let card = this.state.cards[cardIndex]
     if (card.list_id !== listId) {
-      this.setState(update(this.state.cards[cardIndex], { list_id: { $set: listId}
+      this.setState(update(this.state, {
+        cards: {
+          [cardIndex]: {
+            status: {$set: listId}
+          }
+        }
       }));
     }
   }
