@@ -26,9 +26,9 @@ class ListForm extends Component {
 
   render() {
     return(
-      <form className="list" onSubmit={this.handleSubmit}>
-        <input id={'text-input-' + this.props.list_id} type="text" placeholder="Say something..." value={this.state.text} onChange={this.handleTextChange} />
-        <input id={'create-card-button-' + this.props.list_id} type="submit" value="Post" />
+      <form className="new-list" onSubmit={this.handleSubmit}>
+        <input className="input" type="text" placeholder="Add a new list..." value={this.state.text} onChange={this.handleTextChange} />
+        <input type="submit" value="Add List" />
       </form>
     );
   };
