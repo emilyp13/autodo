@@ -13,6 +13,7 @@ class Board extends Component {
     this.handleListSubmit = this.handleListSubmit.bind(this)
     this.populateLists = this.populateLists.bind(this)
     this.getLists = this.getLists.bind(this)
+    this.handleListDelete = this.handleListDelete.bind(this)
   }
 
   componentDidMount() {
@@ -28,6 +29,14 @@ class Board extends Component {
       success: this.populateLists
     })
     this.getLists();
+  }
+
+  handleListDelete(deletedListId) {
+    $.ajax({
+      url: "api/lists/" + deletedListId,
+      method: 'DELETE',
+      success: this.getLists
+    })
   }
 
   populateLists(data){
@@ -52,6 +61,7 @@ class Board extends Component {
           key={list.id}
           id={list.id}
           title={list.title}
+          onDelete={this.handleListDelete}
         />
       );
   });
