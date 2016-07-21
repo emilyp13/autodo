@@ -11,14 +11,14 @@ html,body,#board {
 }
 
 i {
+  float: right;
   padding-top: 5px;
-  float:right;
 }
 
-#header {
+.header {
   position: fixed;
-  z-index: 1;
   width: 100%;
+  z-index: 1;
 }
 
 #board {
@@ -29,7 +29,7 @@ i {
   color: $list-title;
   font-size: 20px;
   font-weight: 200;
-  padding:10px;
+  padding: 10px;
 }
 
 .list-block {
@@ -38,6 +38,7 @@ i {
 }
 
 .list {
+  border: 1px solid $grey;
   display: inline-block;
   height: 100%;
   overflow: auto;
@@ -47,7 +48,6 @@ i {
   vertical-align: top;
   white-space: normal;
   width: 300px;
-  border: 1px solid grey;
 }
 
 .list:not(:last-child):after {
@@ -74,6 +74,7 @@ i {
 }
 
 .new-list {
+  border: 1px solid $grey;
   display: inline-block;
   height: 100%;
   overflow: auto;
@@ -83,7 +84,6 @@ i {
   vertical-align: top;
   white-space: normal;
   width: 300px;
-  border: 1px solid grey;
 }
 
 .input {
