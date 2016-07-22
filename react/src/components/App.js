@@ -13,12 +13,11 @@ class App extends Component {
     };
 
     this.handleListSubmit = this.handleListSubmit.bind(this)
-    this.populateLists = this.populateLists.bind(this)
     this.getLists = this.getLists.bind(this)
     this.handleListDelete = this.handleListDelete.bind(this)
 
     this.handleCardSubmit = this.handleCardSubmit.bind(this)
-    this.populateCards = this.populateCards.bind(this)
+    this.populateState = this.populateState.bind(this)
     this.getCards = this.getCards.bind(this)
     this.handleCardDelete = this.handleCardDelete.bind(this)
 
@@ -33,13 +32,13 @@ class App extends Component {
       dataType: 'application/json',
       type: 'POST',
       data: card,
-      success: this.populateCards
+      success: this.populateState
     })
     this.getCards();
   }
 
-  populateCards(data){
-    this.setState({ cards: data.cards });
+  populateState(data){
+    this.setState({ cards: data.cards, lists: data.lists });
   }
 
   getCards(){
@@ -47,7 +46,7 @@ class App extends Component {
       method: "GET",
       url: "/api/cards",
       contentType: "application/json",
-      success: this.populateCards
+      success: this.populateState
     })
   }
 
@@ -65,7 +64,7 @@ class App extends Component {
       dataType: 'application/json',
       type: 'POST',
       data: list,
-      success: this.populateLists
+      success: this.populateState
     })
     this.getLists();
   }
@@ -89,12 +88,8 @@ class App extends Component {
       contentType: "application/json"
     })
     .done(data => {
-      this.populateLists(data);
+      this.populateState(data);
     });
-  }
-
-  populateLists(data){
-    this.setState({ lists: data.lists, cards: data.cards });
   }
 
   updateCardStatus(cardId, listId) {
@@ -165,13 +160,11 @@ class App extends Component {
              updatePosition: this.updateCardPosition,
              persistCardDrag: this.persistCardDrag,
              handleCardSubmit: this.handleCardSubmit,
-             populateCards: this.populateCards,
              getCards: this.getCards,
              onCardDelete: this.handleCardDelete
           }}
           listCallbacks={{
             onListSubmit: this.handleListSubmit,
-            populateLists: this.populateLists,
             getLists: this.getLists,
             onListDelete: this.handleListDelete
           }}
