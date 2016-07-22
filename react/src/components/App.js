@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
 import update from 'react-addons-update';
+import {throttle} from './utils';
 import Board from './Board'
 
 class App extends Component {
@@ -21,8 +22,8 @@ class App extends Component {
     this.getCards = this.getCards.bind(this)
     this.handleCardDelete = this.handleCardDelete.bind(this)
 
-    this.updateCardStatus = this.updateCardStatus.bind(this);
-    this.updateCardPosition = this.updateCardPosition.bind(this);
+    this.updateCardStatus = throttle(this.updateCardStatus.bind(this));
+    this.updateCardPosition = throttle(this.updateCardPosition.bind(this),500);
     this.persistCardDrag = this.persistCardDrag.bind(this);
   }
 
@@ -72,13 +73,13 @@ class App extends Component {
   handleListDelete(deletedListId) {
     $.ajax({
       url: "api/lists/" + deletedListId,
-      method: 'DELETE',
-      success: this.getLists
+      method: 'DELETE'
     })
+    .done(this.getLists)
   }
 
-  populateLists(data){
-    this.setState({ lists: data.lists, cards: data.cards });
+  componentDidMount() {
+    this.getLists();
   }
 
   getLists(){
@@ -92,8 +93,8 @@ class App extends Component {
     });
   }
 
-  componentDidMount() {
-    this.getLists();
+  populateLists(data){
+    this.setState({ lists: data.lists, cards: data.cards });
   }
 
   updateCardStatus(cardId, listId) {
