@@ -1,12 +1,27 @@
 describe "List API" do
-  it 'sends and gets lists' do
-    FactoryGirl.create_list(:list, 10)
+  before do
+    @list = FactoryGirl.create(:list, id: 1)
+  end
+
+  it 'gets lists' do
     get '/api/lists'
     json = JSON.parse(response.body)
-    # test for the 200 status-code
     expect(response).to be_success
+    expect(json['lists'].length).to eq(1)
+  end
 
-    # check to make sure the right amount of messages are returned
-    expect(json['lists'].length).to eq(10)
+  it "posts lists" do
+    params = {text: "list title"}
+    post "/api/lists", params.to_json, {'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json'}
+    json = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(json['lists'].length).to eq(2)
+  end
+
+  it "deletes lists" do
+    delete "/api/lists/#{@list.id}"
+    json = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(json['lists'].length).to eq(0)
   end
 end

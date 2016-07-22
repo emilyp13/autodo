@@ -1,26 +1,26 @@
 class Api::ListsController < ApiController
+
+  def grabListsAndCards
+    @cards = Card.all
+    @lists = List.all
+  end
+
   def index
-    lists = List.all
-    cards = Card.all
-    render json: { lists: lists, cards: cards }, status: :ok
+    grabListsAndCards
+    render json: { lists: @lists, cards: @cards }, status: :ok
   end
 
   def create
-    @list = List.new(title: params[:text])
-    @list.save
-    lists = List.all
-    cards = Card.all
-    render json: { lists: lists, cards: cards }, status: :ok
-  end
-
-  def new
-    @list = List.new
+    grabListsAndCards
+    list = List.new(title: params[:text])
+    list.save
+    render json: { lists: @lists, cards: @cards }, status: :ok
   end
 
   def destroy
+    grabListsAndCards
     @list = List.find(params[:id])
     @list.destroy
-    lists = List.all
-    render json: { lists: lists }, status: :ok
+    render json: { lists: @lists, cards: @cards }, status: :ok
   end
 end
