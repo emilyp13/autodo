@@ -10,10 +10,26 @@ html,body,#board {
   padding: 0;
 }
 
-h1 {
+i {
+  float: right;
+  padding-top: 5px;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+#board {
+  padding-top: 60px;
+}
+
+.list-header {
   color: $list-title;
   font-size: 20px;
   font-weight: 200;
+  padding: 10px;
 }
 
 .list-block {
@@ -22,10 +38,12 @@ h1 {
 }
 
 .list {
+  border: 1px solid $grey;
   display: inline-block;
   height: 100%;
   overflow: auto;
   padding: 0 20px;
+  margin: 10px;
   position: relative;
   vertical-align: top;
   white-space: normal;
@@ -53,4 +71,21 @@ h1 {
   width: 100%;
   z-index: 1;
   padding: 10px 10px 10px 15px;
+}
+
+.new-list {
+  border: 1px solid $grey;
+  display: inline-block;
+  height: 100%;
+  overflow: auto;
+  padding: 0 20px;
+  margin: 10px;
+  position: relative;
+  vertical-align: top;
+  white-space: normal;
+  width: 300px;
+}
+
+.input {
+  width: 50%;
 }

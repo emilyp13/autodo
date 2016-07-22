@@ -40,7 +40,7 @@ class Card extends Component {
   }
 
   deleteCard() {
-    this.props.onDelete(this.props.id);
+    this.props.cardCallbacks.onCardDelete(this.props.id);
   }
 
   render() {
@@ -49,7 +49,7 @@ class Card extends Component {
     return connectDropTarget(connectDragSource(
       <div className="card">
       {this.props.text}
-      <button type="submit" onClick={this.deleteCard}> Delete</button>
+      <i className="fa fa-trash-o" type="submit" onClick={this.deleteCard}></i>
       </div>
     ));
   };

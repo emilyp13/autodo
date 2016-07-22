@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class CardForm extends Component {
+class ListForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,18 +20,18 @@ class CardForm extends Component {
     if (!text) {
       return;
     }
-    this.props.cardFormCallbacks.onCardSubmit({text: text, list_id: this.props.list_id});
+    this.props.listFormCallbacks.onListSubmit({text: text, list_id: this.props.list_id});
     this.setState({text: ''});
   }
 
   render() {
     return(
-      <form className="cardForm" onSubmit={this.handleSubmit}>
-        <input className="input" type="text" placeholder="Add a new card..." value={this.state.text} onChange={this.handleTextChange} />
-        <input className="submit-button" type="submit" value="Add Card" />
+      <form className="new-list" onSubmit={this.handleSubmit}>
+        <input className="input" type="text" placeholder="Add a new list..." value={this.state.text} onChange={this.handleTextChange} />
+        <input type="submit" value="Add List" />
       </form>
     );
   };
 };
 
-export default CardForm;
+export default ListForm;

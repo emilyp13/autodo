@@ -21,46 +21,11 @@ class List extends Component {
   constructor(props) {
     super(props);
 
-    this.handleCardSubmit = this.handleCardSubmit.bind(this)
-    this.populateCards = this.populateCards.bind(this)
-    this.getCards = this.getCards.bind(this)
-    this.handleCardDelete = this.handleCardDelete.bind(this)
+    this.deleteList = this.deleteList.bind(this)
   }
 
-  handleCardSubmit(card) {
-    $.ajax({
-      url: "/api/lists/#{this.props.id}/cards/new",
-      dataType: 'application/json',
-      type: 'POST',
-      data: card,
-      success: this.populateCards
-    })
-    this.getCards();
-  }
-
-  populateCards(data){
-    this.setState({ cards: data.cards });
-  }
-
-  getCards(){
-    $.ajax({
-      method: "GET",
-      url: "/api/lists/" + this.props.id + "/cards",
-      contentType: "application/json",
-      success: this.populateCards
-    })
-  }
-
-  handleCardDelete(deletedCardId) {
-    $.ajax({
-      url: "api/cards/" + deletedCardId,
-      method: 'DELETE',
-      success: this.getCards
-    })
-  }
-
-  componentDidMount() {
-    this.getCards();
+  deleteList() {
+    this.props.listCallbacks.onListDelete(this.props.id);
   }
 
   render() {
@@ -80,10 +45,13 @@ class List extends Component {
 
     return connectDropTarget(
       <div className="list">
-        <h1>{this.props.title}</h1>
+        <div className="list-header">
+        {this.props.title}
+        <i className="fa fa-trash-o" type="submit" onClick={this.deleteList}></i>
+        </div>
         <div className="card-block">
           {cards}
-          <CardForm onCardSubmit={this.handleCardSubmit} list_id={this.props.id}/>
+          <CardForm cardFormCallbacks={this.props.cardFormCallbacks} list_id={this.props.id}/>
         </div>
       </div>
     );
