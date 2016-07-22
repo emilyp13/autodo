@@ -8,6 +8,9 @@ const cardDragSpec = {
       id: props.id,
       list_id: props.list_id
     }
+  },
+  endDrag(props) {
+    props.cardCallbacks.persistCardDrag(props.id, props.list_id);
   }
 }
 

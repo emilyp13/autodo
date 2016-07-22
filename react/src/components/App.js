@@ -13,6 +13,7 @@ class App extends Component {
 
     this.updateCardStatus = this.updateCardStatus.bind(this);
     this.updateCardPosition = this.updateCardPosition.bind(this);
+    this.persistCardDrag = this.persistCardDrag.bind(this);
   }
 
   componentDidMount() {
@@ -27,13 +28,9 @@ class App extends Component {
   }
 
   updateCardStatus(cardId, listId) {
-    // Find the index of the card
     let cardIndex = this.state.cards.findIndex((card)=>card.id === cardId);
-    // Get the current card
     let card = this.state.cards[cardIndex]
-    // Only proceed if hovering over a different list
     if(card.list_id !== listId){
-      // set the component state to the mutated object
       this.setState(update(this.state, {
           cards: {
             [cardIndex]: {
@@ -45,15 +42,10 @@ class App extends Component {
   }
 
   updateCardPosition(cardId , afterId){
-    // Only proceed if hovering over a different card
     if(cardId !== afterId) {
-      // Find the index of the card
       let cardIndex = this.state.cards.findIndex((card)=>card.id === cardId);
-      // Get the current card
       let card = this.state.cards[cardIndex]
-      // Find the index of the card the user is hovering over
       let afterIndex = this.state.cards.findIndex((card)=>card.id === afterId);
-      // Use splice to remove the card and reinsert it a the new index
       this.setState(update(this.state, {
         cards: {
           $splice: [
@@ -64,6 +56,36 @@ class App extends Component {
       }));
     }
   }
+
+  persistCardDrag (cardId, listId) {
+    let cardIndex = this.state.cards.findIndex((card)=>card.id == cardId);
+    let card = this.state.cards[cardIndex]
+    $.ajax({
+      method: "POST",
+      url: "/api/cards/" + card.id,
+      data: card,
+      headers: {"X-HTTP-Method-Override": "PUT"},
+      dataType: "application/json"
+    })
+    .done(data => {
+      this.setState(
+        update(this.state, {
+          cards: {
+            [cardIndex]: {
+              list_id: { $set: list_id }
+            }
+          },
+          cards: {
+            $splice: [
+              [cardIndex, 1],
+              [afterIndex, 0, card]
+            ]
+          }
+        })
+      );
+    });
+  }
+
   render(){
     return(
       <Board cards={this.state.cards}
@@ -71,6 +93,7 @@ class App extends Component {
           cardCallbacks={{
              updateStatus: this.updateCardStatus,
              updatePosition: this.updateCardPosition,
+             persistCardDrag: this.persistCardDrag
           }}
       />
     );
