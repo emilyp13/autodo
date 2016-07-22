@@ -20,7 +20,7 @@ class ListForm extends Component {
     if (!text) {
       return;
     }
-    this.props.onListSubmit({text: text, list_id: this.props.list_id});
+    this.props.listFormCallbacks.onListSubmit({text: text, list_id: this.props.list_id});
     this.setState({text: ''});
   }
 

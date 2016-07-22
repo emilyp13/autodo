@@ -20,7 +20,7 @@ class CardForm extends Component {
     if (!text) {
       return;
     }
-    this.props.onCardSubmit({text: text, list_id: this.props.list_id});
+    this.props.cardFormCallbacks.onCardSubmit({text: text, list_id: this.props.list_id});
     this.setState({text: ''});
   }
 

@@ -1,73 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { DropTarget } from 'react-dnd';
 import Card from './Card.js'
 import CardForm from './CardForm.js'
+import constants from './constants';
+
+const listTargetSpec = {
+  hover(props, monitor) {
+    const draggedId = monitor.getItem().id;
+    props.cardCallbacks.updateStatus(draggedId, props.id)
+  }
+};
+
+let collect = (connect, monitor) => {
+  return {
+    connectDropTarget: connect.dropTarget(),
+  };
+}
 
 class List extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cards: []
-    };
 
-    this.handleCardSubmit = this.handleCardSubmit.bind(this)
-    this.populateCards = this.populateCards.bind(this)
-    this.getCards = this.getCards.bind(this)
-    this.handleCardDelete = this.handleCardDelete.bind(this)
     this.deleteList = this.deleteList.bind(this)
   }
 
-  handleCardSubmit(card) {
-    $.ajax({
-      url: "/api/cards",
-      dataType: 'application/json',
-      type: 'POST',
-      data: card,
-      success: this.populateCards
-    })
-    this.getCards();
-  }
-
-  populateCards(data){
-    this.setState({ cards: data.cards });
-  }
-
-  getCards(){
-    $.ajax({
-      method: "GET",
-      url: "/api/lists/" + this.props.id + "/cards",
-      contentType: "application/json",
-      success: this.populateCards
-    })
-  }
-
-  handleCardDelete(deletedCardId) {
-    $.ajax({
-      url: "api/cards/" + deletedCardId,
-      method: 'DELETE',
-      success: this.getCards
-    })
-  }
-
-  componentDidMount() {
-    this.getCards();
-  }
-
   deleteList() {
-    this.props.onDelete(this.props.id);
+    this.props.listCallbacks.onListDelete(this.props.id);
   }
 
   render() {
-    let cards = this.state.cards.map(card => {
+    const { connectDropTarget } = this.props;
+    let cards = this.props.cards.map(card => {
       return(
         <Card
           key={card.id}
           id={card.id}
           text={card.text}
+          list_id = {this.props.id}
           onDelete={this.handleCardDelete}
+          cardCallbacks={this.props.cardCallbacks}
         />
       );
     });
-    return(
+
+    return connectDropTarget(
       <div className="list">
         <div className="list-header">
         {this.props.title}
@@ -75,11 +51,18 @@ class List extends Component {
         </div>
         <div className="card-block">
           {cards}
-          <CardForm onCardSubmit={this.handleCardSubmit} list_id={this.props.id}/>
+          <CardForm cardFormCallbacks={this.props.cardFormCallbacks} list_id={this.props.id}/>
         </div>
       </div>
     );
   };
 };
 
-export default List;
+List.propTypes = {
+  connectDropTarget: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  cards: PropTypes.arrayOf(PropTypes.object),
+  cardCallbacks: PropTypes.object,
+  connectDropTarget: PropTypes.func.isRequired
+};
+export default DropTarget(constants.CARD, listTargetSpec, collect)(List);
