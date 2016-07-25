@@ -1,4 +1,6 @@
 class BoardsController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @boards = Board.all
   end
@@ -13,6 +15,7 @@ class BoardsController < ApplicationController
 
   def create
     @board = Board.new(board_params)
+    @board.user = current_user
     if @board.save
       redirect_to root_path
     else
@@ -21,7 +24,7 @@ class BoardsController < ApplicationController
   end
 
   private
-  
+
   def board_params
     params.require(:board).permit(:title)
   end

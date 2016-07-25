@@ -1,8 +1,9 @@
 require "rails_helper"
 
 feature "user creates a board" do
+  let!(:user) { FactoryGirl.create(:user) }
   scenario "user successfully creates a board" do
-    visit root_path
+    login_user(user)
     click_link "New Board"
 
     fill_in "Title", with: "my new board"

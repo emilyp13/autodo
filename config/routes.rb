@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   as :user do
-    get '/' => 'boards#index'
+    get '/' => 'devise/sessions#new'
   end
 
   namespace :api do
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :cards
     resources :lists
   end
-
+  
+  root to: "devise/sessions#new"
   resources :boards, only: [:index, :show, :new, :create]
 end

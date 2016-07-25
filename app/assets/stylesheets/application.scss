@@ -27,6 +27,8 @@ input[type=checkbox]{
 
 #body {
   padding-top: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .list-header {
@@ -62,6 +64,10 @@ input[type=checkbox]{
   top: 0;
   width: 1px;
   height: 99%;
+}
+
+.top-bar {
+  height: 50px;
 }
 
 .completed-card {

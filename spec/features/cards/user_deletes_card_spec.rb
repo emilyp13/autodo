@@ -1,12 +1,13 @@
 require "rails_helper"
 
 feature "user deletes card", js: true do
+  let!(:user) { FactoryGirl.create(:user) }
   let!(:list) { FactoryGirl.create(:list, board: board) }
   let!(:board) { FactoryGirl.create(:board) }
   let!(:card) { FactoryGirl.create(:card, board: board, list: list) }
 
   scenario "user deletes card" do
-    visit root_path
+    login_user(user)
     find_link(board.title).trigger('click')
 
     within(:css, '.incomplete-card') do
