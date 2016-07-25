@@ -3,5 +3,6 @@ FactoryGirl.define do
     sequence(:text) { |n| "Card Text#{n}" }
     completed false
     list
+    board
   end
 end

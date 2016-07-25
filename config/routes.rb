@@ -1,15 +1,20 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :lists do
-    resources :cards, only: [:new, :index, :create, :show, :update]
+
+  as :user do
+    get '/' => 'boards#index'
   end
+
   namespace :api do
-    resources :lists do
+    resources :boards do
+      resources :lists do
+        resources :cards
+      end
       resources :cards
     end
     resources :cards
+    resources :lists
   end
 
-  resources :cards, only: [:index, :create, :edit, :show, :destroy]
-  root to: 'lists#index'
+  resources :boards, only: [:index, :show, :new, :create]
 end

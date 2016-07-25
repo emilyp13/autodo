@@ -1,16 +1,18 @@
 require "rails_helper"
 
-feature "user deletes list" do
-  let!(:list) { FactoryGirl.create(:list) }
-  let!(:card) { FactoryGirl.create(:card) }
-  let!(:card2) { FactoryGirl.create(:card) }
+feature "user deletes card", js: true do
+  let!(:list) { FactoryGirl.create(:list, board: board) }
+  let!(:board) { FactoryGirl.create(:board) }
+  let!(:card) { FactoryGirl.create(:card, board: board, list: list) }
 
-  scenario "user delets lists" do
+  scenario "user deletes card" do
     visit root_path
-    click_link card.text
-    click_link "Delete"
+    find_link(board.title).trigger('click')
 
-    expect(current_path).to eq("/lists")
+    within(:css, '.incomplete-card') do
+      find('i.fa.fa-trash-o').trigger('click')
+    end
+
     expect(page).to_not have_content(card.text)
   end
 end

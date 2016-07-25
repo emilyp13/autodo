@@ -28,7 +28,7 @@ class App extends Component {
 
   handleCardSubmit(card) {
     $.ajax({
-      url: "/api/cards",
+      url: "/api" + window.location.pathname + "/cards",
       dataType: 'application/json',
       type: 'POST',
       data: card,
@@ -44,7 +44,7 @@ class App extends Component {
   getCards(){
     $.ajax({
       method: "GET",
-      url: "/api/cards",
+      url: "/api" + window.location.pathname + "/cards",
       contentType: "application/json",
       success: this.populateState
     })
@@ -52,7 +52,7 @@ class App extends Component {
 
   handleCardDelete(deletedCardId) {
     $.ajax({
-      url: "api/cards/" + deletedCardId,
+      url: "/api" + window.location.pathname + "/cards/" + deletedCardId,
       method: 'DELETE',
       success: this.getCards
     })
@@ -60,7 +60,7 @@ class App extends Component {
 
   handleListSubmit(list) {
     $.ajax({
-      url: "/api/lists",
+      url: "/api" + window.location.pathname + "/lists",
       dataType: 'application/json',
       type: 'POST',
       data: list,
@@ -71,7 +71,7 @@ class App extends Component {
 
   handleListDelete(deletedListId) {
     $.ajax({
-      url: "api/lists/" + deletedListId,
+      url: "/api" + window.location.pathname + "/lists/" + deletedListId,
       method: 'DELETE'
     })
     .done(this.getLists)
@@ -84,7 +84,7 @@ class App extends Component {
   getLists(){
     $.ajax({
       method: "GET",
-      url: "/api/lists",
+      url: "/api" + window.location.pathname + "/lists",
       contentType: "application/json"
     })
     .done(data => {
@@ -127,7 +127,7 @@ class App extends Component {
     let card = this.state.cards[cardIndex]
     $.ajax({
       method: "POST",
-      url: "/api/cards/" + card.id,
+      url: "/api" + window.location.pathname + "/cards/" + card.id,
       data: card,
       headers: {"X-HTTP-Method-Override": "PUT"},
       dataType: "application/json"

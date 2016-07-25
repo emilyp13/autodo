@@ -19,13 +19,18 @@
   <div class="top-bar">
     <div class="top-bar-left">
       <ul class="dropdown menu">
-        <li class="menu-text">AuToDo</li>
+        <li class="menu-text"><%= link_to "AuToDo", boards_path %></li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul>
+        <%= link_to "Home", boards_path %>
       </ul>
     </div>
   </div>
 </div>
 
-<div id="board">
+<div id="body">
   <%= yield %>
 </div>
 

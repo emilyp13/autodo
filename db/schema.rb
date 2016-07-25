@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722190115) do
+ActiveRecord::Schema.define(version: 20160725152343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "boards", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cards", force: :cascade do |t|
     t.text     "text",                       null: false
@@ -22,12 +28,14 @@ ActiveRecord::Schema.define(version: 20160722190115) do
     t.boolean  "completed",  default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "board_id",                   null: false
   end
 
   create_table "lists", force: :cascade do |t|
     t.string   "title",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "board_id",   null: false
   end
 
   create_table "users", force: :cascade do |t|
