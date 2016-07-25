@@ -1,0 +1,95 @@
+@import "colors";
+
+.fa-trash-o {
+  float: right;
+  padding-top: 5px;
+}
+
+input[type=checkbox]{
+  margin: 0;
+}
+
+.list-header {
+  color: $list-title;
+  font-size: 20px;
+  font-weight: 200;
+  padding: 10px;
+}
+
+.list-block {
+  height: 100%;
+  white-space: nowrap;
+}
+
+.list {
+  border: 1px solid $grey;
+  display: inline-block;
+  height: 100%;
+  overflow: auto;
+  padding: 0 20px;
+  margin: 10px 20px 10px 0;
+  position: relative;
+  vertical-align: top;
+  white-space: normal;
+  width: 300px;
+}
+
+.list:not(:last-child):after {
+  background: linear-gradient(to bottom, $ligth-grey-white 0%, $grey-white 50%, $ligth-grey-white 100%) fixed;
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
+  height: 99%;
+}
+
+.top-bar {
+  height: 50px;
+}
+
+.completed-card {
+  color: $grey;
+  text-decoration: line-through;
+  background: $background;
+  border: 1px solid ;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
+  margin: 0 0 10px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  padding: 10px 10px 10px 15px;
+}
+
+.incomplete-card {
+  color: black;
+  background: $background;
+  border: 1px solid ;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
+  margin: 0 0 10px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  padding: 10px 10px 10px 15px;
+}
+
+.new-list {
+  border: 1px solid $grey;
+  display: inline-block;
+  height: 100%;
+  overflow: auto;
+  padding: 0 20px;
+  margin: 10px;
+  position: relative;
+  vertical-align: top;
+  white-space: normal;
+  width: 300px;
+}
+
+.card-text{
+  padding-left: 10px;
+}

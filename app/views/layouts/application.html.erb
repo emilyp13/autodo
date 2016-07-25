@@ -2,43 +2,52 @@
 <html>
 <head>
   <title>AuToDo</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">  <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
   <script src="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <%= stylesheet_link_tag    'application', media: 'all' %>
 </head>
 <body>
-
-<div class="header">
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <ul class="menu">
-        <li><%= link_to "AuToDo", boards_path %></li>
-      </ul>
-    </div>
-    <div class="top-bar-right">
-      <ul class="menu">
-        <li><%= link_to "Home", boards_path %></li>
-        <% if user_signed_in? %>
+<% if request.env['PATH_INFO'] == "/" || request.env['PATH_INFO'] == "/users/sign_in" || request.env['PATH_INFO'] == "/users/sign_up" %>
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg%>
+  <% end %>
+  <div class="landing-page">
+    <%= yield %>
+  </div>
+<% else %>
+  <div class="header">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li class="logo"><%= link_to "AuToDo", boards_path %></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><%= link_to "Home", boards_path %></li>
+          <% if user_signed_in? %>
           <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
-        <% else %>
+          <% else %>
           <li><%= link_to "Log In", root_path %></li>
           <li><%= link_to "Sign Up", new_user_registration_path %></li>
-        <% end %>
-      </ul>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<% flash.each do |name, msg| %>
+  <% flash.each do |name, msg| %>
   <%= content_tag :div, msg%>
-<% end %>
+  <% end %>
 
-<div id="body">
-  <%= yield %>
-</div>
+  <div id="body">
+    <%= yield %>
+  </div>
+<% end %>
 
 </body>
 </html>

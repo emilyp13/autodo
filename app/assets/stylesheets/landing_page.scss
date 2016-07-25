@@ -1,0 +1,33 @@
+#logo {
+  width: 300px;
+  padding-bottom: 20px;
+  margin-left: 40px;
+}
+
+.landing-page{
+  background-image: url("background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.log-in-block {
+  margin-left: 595px;
+  padding-top: 150px;
+  width: 400px;
+  position: absolute;
+}
+
+.log-in-title {
+  font-weight: normal;
+  font-family: 'Quicksand', sans-serif;
+  text-align: center;
+}
+
+.shared-links {
+  float:right;
+  .button {
+    float:right;
+  }
+}

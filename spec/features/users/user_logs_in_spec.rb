@@ -35,6 +35,6 @@ feature 'user logs in' do
 
     click_link 'Log Out'
 
-    expect(page).to have_content('Log In')
+    expect(page).to have_button('Log in')
   end
 end
