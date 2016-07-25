@@ -13,9 +13,9 @@ describe "Card API" do
   end
 
   it "posts cards" do
-    params = {text: "card text", list_id: @list.id, board_id: @board.id}
+    params = { text: "card text", list_id: @list.id, board_id: @board.id }
 
-    post '/api/boards/6/cards/', params.to_json, {'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json'}
+    post '/api/boards/6/cards/', params.to_json, { 'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json' }
 
     json = JSON.parse(response.body)
     expect(response).to be_success
@@ -31,9 +31,9 @@ describe "Card API" do
   end
 
   it "updates cards" do
-    params = {text: "card text", list_id: @list.id}
+    params = { text: "card text", list_id: @list.id }
 
-    patch '/api/boards/6/cards/3', params.to_json, {'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json'}
+    patch '/api/boards/6/cards/3', params.to_json, { 'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json' }
 
     json = JSON.parse(response.body)
     expect(response).to be_success
