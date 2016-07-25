@@ -61,10 +61,16 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include FactoryGirl::Syntax::Methods
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include AuthenticationHelper
 end
 
 Capybara::Webkit.configure do |config|
     config.allow_url("https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css")
     config.allow_url("https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.js")
     config.allow_url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
+    config.allow_url("https://fonts.googleapis.com/css?family=Raleway:400,700")
+    config.allow_url("https://fonts.googleapis.com/css?family=Quicksand")
 end

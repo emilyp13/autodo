@@ -1,4 +1,12 @@
-<% @boards.each do |board| %>
-  <%= link_to board.title, board_path(board) %>
-<% end %>
-<%= link_to "New Board", new_board_path %>
+<div class="board-list-header">
+  <span class="title">My Boards</span>
+  <span class="new-board">
+    <i class="fa fa-plus-square" aria-hidden="true"></i>
+    <%= link_to "New Board", new_board_path%>
+  </span>
+</div>
+<div >
+  <% @boards.each do |board| %>
+  <%= link_to board.title, board_path(board), class: "callout" %>
+  <% end %>
+</div>

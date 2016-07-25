@@ -1,22 +1,30 @@
 @import "colors";
+@import "landing_page";
+@import "board_list";
+@import "board";
 
 * {
   box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
 }
 
 html,body,#board {
+  background: url("cream_dust.png") repeat 0 0;
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-i {
-  float: right;
-  padding-top: 5px;
-}
-
-input[type=checkbox]{
-  margin: 0;
+.top-bar {
+  a {
+    background-color: $text;
+    color: black;
+  }
+  a:hover {
+    color: grey;
+  }
+  height: 62px;
+  background-color: $text;
 }
 
 .header {
@@ -26,90 +34,21 @@ input[type=checkbox]{
 }
 
 #body {
-  padding-top: 60px;
-}
-
-.list-header {
-  color: $list-title;
-  font-size: 20px;
-  font-weight: 200;
-  padding: 10px;
-}
-
-.list-block {
+  padding-top: 75px;
+  padding-left: 20px;
+  padding-right: 20px;
   height: 100%;
-  white-space: nowrap;
 }
 
-.list {
-  border: 1px solid $grey;
-  display: inline-block;
-  height: 100%;
-  overflow: auto;
-  padding: 0 20px;
-  margin: 10px;
-  position: relative;
-  vertical-align: top;
-  white-space: normal;
-  width: 300px;
+.top-bar-right {
+  padding-top: 5px;
+}
+.button {
+  background-color: $text;
 }
 
-.list:not(:last-child):after {
-  background: linear-gradient(to bottom, $ligth-grey-white 0%, $grey-white 50%, $ligth-grey-white 100%) fixed;
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 1px;
-  height: 99%;
-}
-
-.completed-card {
-  color: $grey;
-  text-decoration: line-through;
-  background: $background;
-  border: 1px solid ;
-  border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
-  margin: 0 0 10px;
-  overflow: auto;
-  position: relative;
-  width: 100%;
-  z-index: 1;
-  padding: 10px 10px 10px 15px;
-}
-
-.incomplete-card {
-  color: black;
-  background: $background;
-  border: 1px solid ;
-  border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
-  margin: 0 0 10px;
-  overflow: auto;
-  position: relative;
-  width: 100%;
-  z-index: 1;
-  padding: 10px 10px 10px 15px;
-}
-
-.new-list {
-  border: 1px solid $grey;
-  display: inline-block;
-  height: 100%;
-  overflow: auto;
-  padding: 0 20px;
-  margin: 10px;
-  position: relative;
-  vertical-align: top;
-  white-space: normal;
-  width: 300px;
-}
-
-.input {
-  width: 50%;
-}
-
-.card-text{
-  padding-left: 10px;
+.logo {
+  font-size: 2em;
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
 }
