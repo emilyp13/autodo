@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
 import update from 'react-addons-update';
+import {throttle} from './utils';
 import Board from './Board'
 
 class App extends Component {
@@ -12,47 +13,46 @@ class App extends Component {
     };
 
     this.handleListSubmit = this.handleListSubmit.bind(this)
-    this.populateLists = this.populateLists.bind(this)
     this.getLists = this.getLists.bind(this)
     this.handleListDelete = this.handleListDelete.bind(this)
 
     this.handleCardSubmit = this.handleCardSubmit.bind(this)
-    this.populateCards = this.populateCards.bind(this)
+    this.populateState = this.populateState.bind(this)
     this.getCards = this.getCards.bind(this)
     this.handleCardDelete = this.handleCardDelete.bind(this)
 
-    this.updateCardStatus = this.updateCardStatus.bind(this);
-    this.updateCardPosition = this.updateCardPosition.bind(this);
+    this.updateCardStatus = throttle(this.updateCardStatus.bind(this));
+    this.updateCardPosition = throttle(this.updateCardPosition.bind(this),500);
     this.persistCardDrag = this.persistCardDrag.bind(this);
   }
 
   handleCardSubmit(card) {
     $.ajax({
-      url: "/api/cards",
+      url: "/api" + window.location.pathname + "/cards",
       dataType: 'application/json',
       type: 'POST',
       data: card,
-      success: this.populateCards
+      success: this.populateState
     })
     this.getCards();
   }
 
-  populateCards(data){
-    this.setState({ cards: data.cards });
+  populateState(data){
+    this.setState({ cards: data.cards, lists: data.lists });
   }
 
   getCards(){
     $.ajax({
       method: "GET",
-      url: "/api/cards",
+      url: "/api" + window.location.pathname + "/cards",
       contentType: "application/json",
-      success: this.populateCards
+      success: this.populateState
     })
   }
 
   handleCardDelete(deletedCardId) {
     $.ajax({
-      url: "api/cards/" + deletedCardId,
+      url: "/api" + window.location.pathname + "/cards/" + deletedCardId,
       method: 'DELETE',
       success: this.getCards
     })
@@ -60,40 +60,36 @@ class App extends Component {
 
   handleListSubmit(list) {
     $.ajax({
-      url: "/api/lists",
+      url: "/api" + window.location.pathname + "/lists",
       dataType: 'application/json',
       type: 'POST',
       data: list,
-      success: this.populateLists
+      success: this.populateState
     })
     this.getLists();
   }
 
   handleListDelete(deletedListId) {
     $.ajax({
-      url: "api/lists/" + deletedListId,
-      method: 'DELETE',
-      success: this.getLists
+      url: "/api" + window.location.pathname + "/lists/" + deletedListId,
+      method: 'DELETE'
     })
+    .done(this.getLists)
   }
 
-  populateLists(data){
-    this.setState({ lists: data.lists, cards: data.cards });
+  componentDidMount() {
+    this.getLists();
   }
 
   getLists(){
     $.ajax({
       method: "GET",
-      url: "/api/lists",
+      url: "/api" + window.location.pathname + "/lists",
       contentType: "application/json"
     })
     .done(data => {
-      this.populateLists(data);
+      this.populateState(data);
     });
-  }
-
-  componentDidMount() {
-    this.getLists();
   }
 
   updateCardStatus(cardId, listId) {
@@ -131,7 +127,7 @@ class App extends Component {
     let card = this.state.cards[cardIndex]
     $.ajax({
       method: "POST",
-      url: "/api/cards/" + card.id,
+      url: "/api" + window.location.pathname + "/cards/" + card.id,
       data: card,
       headers: {"X-HTTP-Method-Override": "PUT"},
       dataType: "application/json"
@@ -164,13 +160,11 @@ class App extends Component {
              updatePosition: this.updateCardPosition,
              persistCardDrag: this.persistCardDrag,
              handleCardSubmit: this.handleCardSubmit,
-             populateCards: this.populateCards,
              getCards: this.getCards,
              onCardDelete: this.handleCardDelete
           }}
           listCallbacks={{
             onListSubmit: this.handleListSubmit,
-            populateLists: this.populateLists,
             getLists: this.getLists,
             onListDelete: this.handleListDelete
           }}

@@ -1,20 +1,42 @@
 describe "Card API" do
+  before do
+    @board = FactoryGirl.create(:board, id: 6)
+    @list = FactoryGirl.create(:list, board: @board)
+    @card = FactoryGirl.create(:card, id: 3, board: @board, list: @list)
+  end
+
   it 'gets cards' do
-    list = FactoryGirl.create(:list, id: 1)
-    card = FactoryGirl.create(:card, list_id: list.id)
-    get '/api/lists/1/cards/'
+    get '/api/boards/6/cards/'
     json = JSON.parse(response.body)
-    # test for the 200 status-code
     expect(response).to be_success
-    # check to make sure the right amount of messages are returned
     expect(json['cards'].length).to eq(1)
   end
 
-  it "gets cards even when there none" do
-    list = FactoryGirl.create(:list, id: 1)
-    get '/api/lists/1/cards/'
+  it "posts cards" do
+    params = { text: "card text", list_id: @list.id, board_id: @board.id }
+
+    post '/api/boards/6/cards/', params.to_json, { 'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json' }
+
+    json = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(json['cards'].length).to eq(2)
+  end
+
+  it "deletes cards" do
+    delete '/api/boards/6/cards/3'
+
     json = JSON.parse(response.body)
     expect(response).to be_success
     expect(json['cards'].length).to eq(0)
+  end
+
+  it "updates cards" do
+    params = { text: "card text", list_id: @list.id }
+
+    patch '/api/boards/6/cards/3', params.to_json, { 'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json' }
+
+    json = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(json['cards'].length).to eq(1)
   end
 end
