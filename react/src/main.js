@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom';
 import App from './components/App'
 
 $(function() {
-  ReactDOM.render(
-    <App />,
-    document.getElementById('board')
-  );
+  if (document.getElementById('board')) {
+    ReactDOM.render(
+      <App />,
+      document.getElementById('board')
+    );
+  }
 });

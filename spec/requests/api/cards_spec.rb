@@ -1,28 +1,21 @@
 describe "Card API" do
   before do
-    @list = FactoryGirl.create(:list, id: 1)
-    @list2 = FactoryGirl.create(:list, id: 4)
-    @card = FactoryGirl.create(:card, list_id: @list.id)
+    @board = FactoryGirl.create(:board, id: 6)
+    @list = FactoryGirl.create(:list, board: @board)
+    @card = FactoryGirl.create(:card, id: 3, board: @board, list: @list)
   end
 
   it 'gets cards' do
-    get '/api/lists/1/cards/'
-    json = JSON.parse(response.body)
-    expect(response).to be_success
-    expect(json['cards'].length).to eq(1)
-  end
-
-  it "gets cards even when there none" do
-    get '/api/lists/1/cards/'
+    get '/api/boards/6/cards/'
     json = JSON.parse(response.body)
     expect(response).to be_success
     expect(json['cards'].length).to eq(1)
   end
 
   it "posts cards" do
-    params = {text: "card text", list_id: @list.id}
+    params = {text: "card text", list_id: @list.id, board_id: @board.id}
 
-    post "/api/cards", params.to_json, {'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json'}
+    post '/api/boards/6/cards/', params.to_json, {'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json'}
 
     json = JSON.parse(response.body)
     expect(response).to be_success
@@ -30,7 +23,7 @@ describe "Card API" do
   end
 
   it "deletes cards" do
-    delete "/api/cards/#{@card.id}"
+    delete '/api/boards/6/cards/3'
 
     json = JSON.parse(response.body)
     expect(response).to be_success
@@ -38,9 +31,9 @@ describe "Card API" do
   end
 
   it "updates cards" do
-    params = {text: "card text", list_id: @list2.id}
+    params = {text: "card text", list_id: @list.id}
 
-    patch "/api/cards/#{@card.id}", params.to_json, {'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json'}
+    patch '/api/boards/6/cards/3', params.to_json, {'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json'}
 
     json = JSON.parse(response.body)
     expect(response).to be_success

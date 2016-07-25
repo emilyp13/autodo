@@ -22,10 +22,15 @@
         <li class="menu-text">AuToDo</li>
       </ul>
     </div>
+    <div class="top-bar-right">
+      <ul>
+        <%= link_to "Home", boards_path %>
+      </ul>
+    </div>
   </div>
 </div>
 
-<div id="board">
+<div id="body">
   <%= yield %>
 </div>
 
