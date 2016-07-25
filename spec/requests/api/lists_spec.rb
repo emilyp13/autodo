@@ -1,6 +1,6 @@
 describe "List API" do
   before do
-    @list = FactoryGirl.create(:list, id: 1)
+    @list = FactoryGirl.create(:list)
   end
 
   it 'gets lists' do

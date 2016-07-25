@@ -1,21 +1,21 @@
 require "rails_helper"
 
-feature "user creates card" do
+feature "user creates card", js: true do
   let!(:list) { FactoryGirl.create(:list) }
 
   before do
     visit root_path
-    first(:link, "Add Card").click
   end
 
   scenario "user successfully creates a card" do
-    fill_in "Text", with: "Complete my application"
-    click_button "Create Card"
-
+    fill_in "Add a new card...", with: "Complete my application"
+    find('input.submit-button').trigger('click')
+    sleep(5)
+    save_and_open_page
     expect(page).to have_content("Complete my application")
   end
 
-  scenario "user unsuccessfully creates a card" do
+  xscenario "user unsuccessfully creates a card" do
     fill_in "Text", with: ""
     click_button "Create Card"
 

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "user views cards" do
+feature "user views cards", js: true do
   let!(:list) { FactoryGirl.create(:list) }
   let!(:card) { FactoryGirl.create(:card) }
   let!(:card2) { FactoryGirl.create(:card) }

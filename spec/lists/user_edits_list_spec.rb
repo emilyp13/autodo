@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "user edits list" do
+xfeature "user edits list" do
   let!(:list) { FactoryGirl.create(:list) }
   let!(:list2) { FactoryGirl.create(:list) }
 

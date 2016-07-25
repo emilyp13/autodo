@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "user creates list" do
+feature "user views list", js: true do
   let!(:list) { FactoryGirl.create(:list) }
   let!(:list2) { FactoryGirl.create(:list) }
 

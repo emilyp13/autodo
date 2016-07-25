@@ -1,12 +1,11 @@
 require "rails_helper"
 
-feature "user deletes list" do
+feature "user deletes list", js: true do
   let!(:list) { FactoryGirl.create(:list) }
-  let!(:list2) { FactoryGirl.create(:list) }
 
   scenario "user delets lists" do
     visit root_path
-    first(:link, "Delete").click
+    find('i.fa.fa-trash-o').trigger('click')
 
     expect(page).to_not have_content(list.title)
   end

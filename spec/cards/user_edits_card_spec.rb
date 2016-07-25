@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "user edits card" do
+xfeature "user edits card", js: true do
   let!(:list) { FactoryGirl.create(:list) }
   let!(:card) { FactoryGirl.create(:card) }
   let!(:card2) { FactoryGirl.create(:card) }
