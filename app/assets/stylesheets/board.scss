@@ -77,6 +77,42 @@ input[type=checkbox]{
   padding: 10px 10px 10px 15px;
 }
 
+.card-text {
+  font-weight: bold;
+}
+
+.card-text:before {
+  display: inline-block;
+  width: 1em;
+  content: '▸';
+}
+
+.card-text-is-open:before {
+  content: '▾';
+}
+
+.toggle-enter {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.toggle-enter.toggle-enter-active {
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height .25s ease-in;
+}
+
+.toggle-leave {
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.toggle-leave.toggle-leave-active {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease-out;
+}
+
 .new-list {
   border: 1px solid $grey;
   display: inline-block;
@@ -88,8 +124,4 @@ input[type=checkbox]{
   vertical-align: top;
   white-space: normal;
   width: 300px;
-}
-
-.card-text{
-  padding-left: 10px;
 }

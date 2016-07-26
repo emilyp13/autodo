@@ -36,6 +36,7 @@ class List extends Component {
           key={card.id}
           id={card.id}
           text={card.text}
+          description={card.description}
           list_id = {this.props.id}
           onDelete={this.handleCardDelete}
           cardCallbacks={this.props.cardCallbacks}

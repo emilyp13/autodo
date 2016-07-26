@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { DragSource, DropTarget } from 'react-dnd';
 import constants from './constants';
 
@@ -36,27 +37,43 @@ let collectDrop = (connect, monitor) => {
 class Card extends Component {
   constructor(props) {
     super(props);
+    debugger;
     this.state = {
-      completed: false
+      showDetails: false
     };
     this.deleteCard = this.deleteCard.bind(this)
+  }
+
+  toggleDetails() {
+    this.setState({showDetails: !this.state.showDetails});
   }
 
   deleteCard() {
     this.props.cardCallbacks.onCardDelete(this.props.id);
   }
 
-  toggleCompleted() {
-    this.setState({completed: !this.state.completed});
-  }
-
   render() {
     const { connectDragSource, connectDropTarget } = this.props;
 
+    let cardDetails;
+    if (this.state.showDetails) {
+      cardDetails = (
+        <div className="card-details">
+          {this.props.description}
+        </div>
+      );
+    }
+
     return connectDropTarget(connectDragSource(
-      <div className={this.state.completed? "completed-card" : "incomplete-card"}>
-        <input type="checkbox" onClick={this.toggleCompleted.bind(this)}/>
-        <span className="card-text">{this.props.text}</span>
+      <div className="incomplete-card">
+          <span className={ this.state.showDetails? "card-text card-text-is-open" : "card-text"} onClick={this.toggleDetails.bind(this)}>
+            {this.props.text}
+          </span>
+          <ReactCSSTransitionGroup transitionName="toggle"
+                                   transitionEnterTimeout={250}
+                                   transitionLeaveTimeout={250}>
+            {cardDetails}
+          </ReactCSSTransitionGroup>
         <i className="fa fa-trash-o" type="submit" onClick={this.deleteCard}></i>
       </div>
     ));

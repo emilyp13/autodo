@@ -140,12 +140,6 @@ class App extends Component {
               list_id: { $set: list_id }
             }
           },
-          cards: {
-            $splice: [
-              [cardIndex, 1],
-              [afterIndex, 0, card]
-            ]
-          }
         })
       );
     });
