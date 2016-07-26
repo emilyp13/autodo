@@ -48,21 +48,6 @@ input[type=checkbox]{
   height: 50px;
 }
 
-.completed-card {
-  color: $grey;
-  text-decoration: line-through;
-  background: $background;
-  border: 1px solid ;
-  border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
-  margin: 0 0 10px;
-  overflow: auto;
-  position: relative;
-  width: 100%;
-  z-index: 1;
-  padding: 10px 10px 10px 15px;
-}
-
 .incomplete-card {
   color: black;
   background: $background;
@@ -113,6 +98,9 @@ input[type=checkbox]{
   transition: max-height .25s ease-out;
 }
 
+.card-details {
+  padding-top: 10px;
+}
 .new-list {
   border: 1px solid $grey;
   display: inline-block;
@@ -126,7 +114,10 @@ input[type=checkbox]{
   width: 300px;
 }
 
-
+.checklist__task {
+  list-style: none;
+  margin-left: -20px;
+}
 .checklist__task:first-child {
   margin-top: 10px;
   padding-top: 10px;

@@ -30,7 +30,7 @@ class List extends Component {
 
   render() {
     const { connectDropTarget } = this.props;
-    let tasks = this.props.tasks
+    let tasks = this.props.tasks;
     let cards = this.props.cards.map(card => {
       return(
         <Card

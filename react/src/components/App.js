@@ -30,7 +30,6 @@ class App extends Component {
 
   addTask(cardId, taskName){
     let prevState = this.state;
-    let cardIndex = this.state.cards.findIndex((card)=>card.id == cardId);
     let newTask = {id:Date.now(), name:taskName, completed:false};
     let nextState = update(this.state.tasks, {$push: [newTask] });
     this.setState({tasks:nextState});
@@ -44,13 +43,12 @@ class App extends Component {
     this.getCards();
   }
 
-  deleteTask(cardId, taskId, taskIndex){
+  deleteTask(taskId, taskIndex){
     let prevState = this.state;
-    let cardIndex = this.state.cards.findIndex((card)=>card.id == cardId);
     let nextState = update(this.state, {tasks: {$splice: [[taskIndex,1]] }});
     this.setState({tasks:nextState});
     $.ajax({
-      url: "/api" + window.location.pathname + "/tasks" + taskId,
+      url: "/api" + window.location.pathname + "/tasks/" + taskId,
       dataType: 'application/json',
       method: 'DELETE',
       success: this.populateState
@@ -58,27 +56,25 @@ class App extends Component {
     this.getCards();
   }
 
-  toggleTask(cardId, taskId, taskIndex){
+  toggleTask(taskId, taskIndex){
     let prevState = this.state;
-    let cardIndex = this.state.cards.findIndex((card)=>card.id == cardId);
     let newDoneValue;
-    let nextState = update(this.state, {
-          tasks: {
-            [taskIndex]: {
-              completed: { $apply: (completed) => {
-                newDoneValue = !completed
-                return newDoneValue;
-              }
+    let nextState = update(this.state.tasks, {
+          [taskIndex]: {
+            completed: { $apply: (completed) => {
+              newDoneValue = !completed
+              return newDoneValue;
             }
           }
         }
       }
     );
-    this.setState({cards:nextState});
+    this.setState({tasks:nextState});
+    let changedTask = nextState[taskIndex];
     $.ajax({
       method: "POST",
       url: "/api" + window.location.pathname + "/tasks/" + taskId,
-      data: nextState,
+      data: changedTask,
       headers: {"X-HTTP-Method-Override": "PUT"},
       dataType: "application/json",
       success: this.populateState

@@ -19,6 +19,14 @@ class Api::TasksController < ApiController
     render json: { lists: @lists, cards: @cards, tasks: @tasks }, status: :ok
   end
 
+  def update
+    task = Task.find(params[:id])
+    board = Board.find(params[:board_id])
+    task.update(completed: params[:completed])
+    grab_lists_and_cards
+    render json: { lists: @lists, cards: @cards, tasks: @tasks }, status: :ok
+  end
+
   def destroy
     task = Task.find(params[:id])
     task.destroy
