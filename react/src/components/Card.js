@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { DragSource, DropTarget } from 'react-dnd';
 import constants from './constants';
+import CheckList from './CheckList';
 
 const cardDragSpec = {
   beginDrag(props) {
@@ -37,7 +38,6 @@ let collectDrop = (connect, monitor) => {
 class Card extends Component {
   constructor(props) {
     super(props);
-    debugger;
     this.state = {
       showDetails: false
     };
@@ -60,6 +60,9 @@ class Card extends Component {
       cardDetails = (
         <div className="card-details">
           {this.props.description}
+          <CheckList cardId={this.props.id}
+                       tasks={this.props.tasks}
+                       taskCallbacks={this.props.taskCallbacks} />
         </div>
       );
     }

@@ -9,7 +9,8 @@ class App extends Component {
     super(...arguments);
     this.state = {
       lists: [],
-      cards: []
+      cards: [],
+      tasks: []
     };
 
     this.handleListSubmit = this.handleListSubmit.bind(this)
@@ -26,6 +27,65 @@ class App extends Component {
     this.persistCardDrag = this.persistCardDrag.bind(this);
   }
 
+
+  addTask(cardId, taskName){
+    let prevState = this.state;
+    let cardIndex = this.state.cards.findIndex((card)=>card.id == cardId);
+    let newTask = {id:Date.now(), name:taskName, completed:false};
+    let nextState = update(this.state.tasks, {$push: [newTask] });
+    this.setState({tasks:nextState});
+    $.ajax({
+      url: "/api" + window.location.pathname + "/cards/" + cardId + "/tasks",
+      dataType: 'application/json',
+      type: 'POST',
+      data: newTask,
+      success: this.populateState
+    })
+    this.getCards();
+  }
+
+  deleteTask(cardId, taskId, taskIndex){
+    let prevState = this.state;
+    let cardIndex = this.state.cards.findIndex((card)=>card.id == cardId);
+    let nextState = update(this.state, {tasks: {$splice: [[taskIndex,1]] }});
+    this.setState({tasks:nextState});
+    $.ajax({
+      url: "/api" + window.location.pathname + "/tasks" + taskId,
+      dataType: 'application/json',
+      method: 'DELETE',
+      success: this.populateState
+    })
+    this.getCards();
+  }
+
+  toggleTask(cardId, taskId, taskIndex){
+    let prevState = this.state;
+    let cardIndex = this.state.cards.findIndex((card)=>card.id == cardId);
+    let newDoneValue;
+    let nextState = update(this.state, {
+          tasks: {
+            [taskIndex]: {
+              completed: { $apply: (completed) => {
+                newDoneValue = !completed
+                return newDoneValue;
+              }
+            }
+          }
+        }
+      }
+    );
+    this.setState({cards:nextState});
+    $.ajax({
+      method: "POST",
+      url: "/api" + window.location.pathname + "/tasks/" + taskId,
+      data: nextState,
+      headers: {"X-HTTP-Method-Override": "PUT"},
+      dataType: "application/json",
+      success: this.populateState
+    })
+    this.getCards();
+  }
+
   handleCardSubmit(card) {
     $.ajax({
       url: "/api" + window.location.pathname + "/cards",
@@ -38,7 +98,7 @@ class App extends Component {
   }
 
   populateState(data){
-    this.setState({ cards: data.cards, lists: data.lists });
+    this.setState({ cards: data.cards, lists: data.lists, tasks: data.tasks });
   }
 
   getCards(){
@@ -149,6 +209,12 @@ class App extends Component {
     return(
       <Board cards={this.state.cards}
           lists={this.state.lists}
+          tasks={this.state.tasks}
+          taskCallbacks={{
+             toggle: this.toggleTask.bind(this),
+             delete: this.deleteTask.bind(this),
+             add: this.addTask.bind(this)
+           }}
           cardCallbacks={{
              updateStatus: this.updateCardStatus,
              updatePosition: this.updateCardPosition,
