@@ -1,6 +1,13 @@
-<%= form_for([@card.board, @card]) do |f| %>
-  <%= f.text_field :text, placeholder: "Text" %>
-  <%= f.text_field :description, placeholder: "Description" %>
+<div class="row">
+  <div class="blank small-4 column">blank</div>
+  <div class="small-4 column">
+    <h3>Edit Card</h3>
+    <%= form_for([@card.board, @card]) do |f| %>
+      <%= f.text_field :text, placeholder: "Text" %>
+      <%= f.text_field :description, placeholder: "Description" %>
 
-  <div><%= f.submit%></div>
-<% end %>
+      <div><%= f.submit%></div>
+    <% end %>
+  </div>
+  <div class="blank small-4 column">blank</div>
+</div>
