@@ -1,8 +1,8 @@
 class BoardsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
-    @boards = Board.all
+    @boards = Board.where(user: current_user)
   end
 
   def show

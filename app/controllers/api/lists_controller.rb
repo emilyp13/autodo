@@ -13,7 +13,6 @@ class Api::ListsController < ApiController
   def create
     list = List.new(title: params[:text])
     list.board = Board.find(params[:board_id])
-    list.card = Card.find(params[:card_id])
     list.save
     grab_lists_and_cards
     render json: { lists: @lists, cards: @cards, tasks: @tasks }, status: :ok
