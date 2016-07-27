@@ -8,7 +8,7 @@ feature "user deletes list", js: true do
   scenario "user delets lists" do
     login_user(user)
     find_link(board.title).trigger('click')
-    find('i.fa.fa-trash-o').trigger('click')
+    find('a.fa.fa-trash-o').trigger('click')
 
     expect(page).to_not have_content(list.title)
   end
