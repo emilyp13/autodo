@@ -1,0 +1,6 @@
+<%= form_for([@card.board, @card]) do |f| %>
+  <%= f.text_field :text, placeholder: "Text" %>
+  <%= f.text_field :description, placeholder: "Description" %>
+
+  <div><%= f.submit%></div>
+<% end %>

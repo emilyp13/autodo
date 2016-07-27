@@ -51,7 +51,7 @@ class List extends Component {
       <div className="list">
         <div className="list-header">
         {this.props.title}
-        <i className="fa fa-trash-o" type="submit" onClick={this.deleteList}></i>
+        <a className="fa fa-trash-o" type="submit" onClick={this.deleteList}></a>
         </div>
         <div className="card-block">
           {cards}

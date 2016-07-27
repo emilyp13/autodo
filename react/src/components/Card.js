@@ -42,6 +42,7 @@ class Card extends Component {
       showDetails: false
     };
     this.deleteCard = this.deleteCard.bind(this)
+    this.linkToEdit = this.linkToEdit.bind(this)
   }
 
   toggleDetails() {
@@ -50,6 +51,10 @@ class Card extends Component {
 
   deleteCard() {
     this.props.cardCallbacks.onCardDelete(this.props.id);
+  }
+
+  linkToEdit() {
+    window.location.pathname += "/cards/" + this.props.id + "/edit"
   }
 
   render() {
@@ -77,7 +82,8 @@ class Card extends Component {
                                    transitionLeaveTimeout={250}>
             {cardDetails}
           </ReactCSSTransitionGroup>
-        <i className="fa fa-trash-o" type="submit" onClick={this.deleteCard}></i>
+        <a className="fa fa-trash-o" type="submit" onClick={this.deleteCard}></a>
+        <a className="fa fa-pencil" type="submit" onClick={this.linkToEdit}></a>
       </div>
     ));
   };

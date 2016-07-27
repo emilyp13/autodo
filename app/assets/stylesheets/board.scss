@@ -1,8 +1,12 @@
 @import "colors";
 
-.fa-trash-o {
+.fa {
   float: right;
-  padding-top: 5px;
+  padding: 5px;
+  color: $grey-white;
+  :hover{
+    color: $text;
+  }
 }
 
 input[type=checkbox]{
