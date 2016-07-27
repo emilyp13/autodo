@@ -74,6 +74,8 @@ class Card extends Component {
 
     return connectDropTarget(connectDragSource(
       <div className="incomplete-card">
+        <a className="icon fa fa-trash-o" type="submit" onClick={this.deleteCard}></a>
+        <a className="icon fa fa-pencil" type="submit" onClick={this.linkToEdit}></a>
           <span className={ this.state.showDetails? "card-text card-text-is-open" : "card-text"} onClick={this.toggleDetails.bind(this)}>
             {this.props.text}
           </span>
@@ -82,8 +84,6 @@ class Card extends Component {
                                    transitionLeaveTimeout={250}>
             {cardDetails}
           </ReactCSSTransitionGroup>
-        <a className="fa fa-trash-o" type="submit" onClick={this.deleteCard}></a>
-        <a className="fa fa-pencil" type="submit" onClick={this.linkToEdit}></a>
       </div>
     ));
   };

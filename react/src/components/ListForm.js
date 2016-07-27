@@ -27,8 +27,10 @@ class ListForm extends Component {
   render() {
     return(
       <form className="new-list" onSubmit={this.handleSubmit}>
-        <input className="input" type="text" placeholder="Add a new list..." value={this.state.text} onChange={this.handleTextChange} />
-        <input type="submit" value="Add List" />
+        <div>
+          <input className="submit-button" type="submit" value="Add List" />
+          <input className="input-field" type="text" placeholder="Add a new list..." value={this.state.text} onChange={this.handleTextChange} />
+        </div>
       </form>
     );
   };

@@ -1,12 +1,14 @@
 @import "colors";
 
-.fa {
-  float: right;
-  padding: 5px;
+.fa{
   color: $grey-white;
   :hover{
     color: $text;
   }
+}
+.icon {
+  float: right;
+  padding: 5px;
 }
 
 input[type=checkbox]{
@@ -105,8 +107,18 @@ input[type=checkbox]{
 .card-details {
   padding-top: 10px;
 }
+
+.input-field {
+  width: 65%;
+}
+
+.submit-button {
+  float:right;
+  margin-top: 1px;
+  padding: 9px 7px 9px 7px;
+}
+
 .new-list {
-  border: 1px solid $grey;
   display: inline-block;
   height: 100%;
   overflow: auto;
@@ -122,6 +134,7 @@ input[type=checkbox]{
   list-style: none;
   margin-left: -20px;
 }
+
 .checklist__task:first-child {
   margin-top: 10px;
   padding-top: 10px;
@@ -136,7 +149,6 @@ input[type=checkbox]{
 
 .checklist--add-task {
   border: 1px dashed #bbb;
-  width: 100%;
   padding: 10px;
   margin-top: 5px;
   border-radius: 3px;
