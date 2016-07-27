@@ -29,7 +29,6 @@ class App extends Component {
 
 
   addTask(cardId, taskName){
-    let prevState = this.state;
     let newTask = {id:Date.now(), name:taskName, completed:false};
     let nextState = update(this.state.tasks, {$push: [newTask] });
     this.setState({tasks:nextState});
@@ -38,7 +37,7 @@ class App extends Component {
       dataType: 'application/json',
       type: 'POST',
       data: newTask,
-      success: this.populateState
+      success: this.setState({tasks:nextState})
     })
     this.getCards();
   }
@@ -83,12 +82,15 @@ class App extends Component {
   }
 
   handleCardSubmit(card) {
+    let newCard = {id:card.id, text:card.text, completed:card.completed};
+    let nextState = update(this.state.cards, {$push: [newCard] });
+    this.setState({cards:nextState});
     $.ajax({
       url: "/api" + window.location.pathname + "/cards",
       dataType: 'application/json',
       type: 'POST',
       data: card,
-      success: this.populateState
+      success: this.setState({cards:nextState})
     })
     this.getCards();
   }
@@ -115,12 +117,15 @@ class App extends Component {
   }
 
   handleListSubmit(list) {
+    let newList = {id:list.id, title:list.title};
+    let nextState = update(this.state.lists, {$push: [newList] });
+    this.setState({lists:nextState});
     $.ajax({
       url: "/api" + window.location.pathname + "/lists",
       dataType: 'application/json',
       type: 'POST',
       data: list,
-      success: this.populateState
+      success: this.setState({lists:nextState})
     })
     this.getLists();
   }

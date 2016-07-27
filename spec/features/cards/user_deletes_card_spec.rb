@@ -3,7 +3,7 @@ require "rails_helper"
 feature "user deletes card", js: true do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:list) { FactoryGirl.create(:list, board: board) }
-  let!(:board) { FactoryGirl.create(:board) }
+  let!(:board) { FactoryGirl.create(:board, user: user) }
   let!(:card) { FactoryGirl.create(:card, board: board, list: list) }
 
   scenario "user deletes card" do

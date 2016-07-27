@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "user views list", js: true do
   let!(:user) { FactoryGirl.create(:user) }
-  let!(:board) { FactoryGirl.create(:board) }
+  let!(:board) { FactoryGirl.create(:board, user: user) }
   let!(:list) { FactoryGirl.create(:list, board: board) }
   let!(:list2) { FactoryGirl.create(:list, board: board) }
 
