@@ -1,6 +1,7 @@
 class Card < ActiveRecord::Base
   belongs_to :list
   belongs_to :board
+  has_many :tasks
 
   validates :text, presence: true
   validates_inclusion_of :completed, in: [true, false]

@@ -18,8 +18,10 @@ class Board extends Component {
           id={list.id}
           title={list.title}
           cards={cards.filter((card) => card.list_id === list.id)}
+          tasks={this.props.tasks}
           cardCallbacks={this.props.cardCallbacks}
           listCallbacks={this.props.listCallbacks}
+          taskCallbacks={this.props.taskCallbacks}
           cardFormCallbacks={this.props.cardFormCallbacks}
           onDelete={this.handleListDelete}
         />
