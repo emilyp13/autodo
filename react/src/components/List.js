@@ -30,15 +30,19 @@ class List extends Component {
 
   render() {
     const { connectDropTarget } = this.props;
+    let tasks = this.props.tasks;
     let cards = this.props.cards.map(card => {
       return(
         <Card
           key={card.id}
           id={card.id}
           text={card.text}
+          description={card.description}
+          tasks={tasks.filter((task) => task.card_id === card.id)}
           list_id = {this.props.id}
           onDelete={this.handleCardDelete}
           cardCallbacks={this.props.cardCallbacks}
+          taskCallbacks={this.props.taskCallbacks}
         />
       );
     });
@@ -47,7 +51,7 @@ class List extends Component {
       <div className="list">
         <div className="list-header">
         {this.props.title}
-        <i className="fa fa-trash-o" type="submit" onClick={this.deleteList}></i>
+        <a className="fa fa-trash-o" type="submit" onClick={this.deleteList}></a>
         </div>
         <div className="card-block">
           {cards}

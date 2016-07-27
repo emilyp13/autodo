@@ -1,8 +1,12 @@
 @import "colors";
 
-.fa-trash-o {
+.fa {
   float: right;
-  padding-top: 5px;
+  padding: 5px;
+  color: $grey-white;
+  :hover{
+    color: $text;
+  }
 }
 
 input[type=checkbox]{
@@ -48,21 +52,6 @@ input[type=checkbox]{
   height: 50px;
 }
 
-.completed-card {
-  color: $grey;
-  text-decoration: line-through;
-  background: $background;
-  border: 1px solid ;
-  border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
-  margin: 0 0 10px;
-  overflow: auto;
-  position: relative;
-  width: 100%;
-  z-index: 1;
-  padding: 10px 10px 10px 15px;
-}
-
 .incomplete-card {
   color: black;
   background: $background;
@@ -77,6 +66,45 @@ input[type=checkbox]{
   padding: 10px 10px 10px 15px;
 }
 
+.card-text {
+  font-weight: bold;
+}
+
+.card-text:before {
+  display: inline-block;
+  width: 1em;
+  content: '▸';
+}
+
+.card-text-is-open:before {
+  content: '▾';
+}
+
+.toggle-enter {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.toggle-enter.toggle-enter-active {
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height .25s ease-in;
+}
+
+.toggle-leave {
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.toggle-leave.toggle-leave-active {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease-out;
+}
+
+.card-details {
+  padding-top: 10px;
+}
 .new-list {
   border: 1px solid $grey;
   display: inline-block;
@@ -90,6 +118,26 @@ input[type=checkbox]{
   width: 300px;
 }
 
-.card-text{
-  padding-left: 10px;
+.checklist__task {
+  list-style: none;
+  margin-left: -20px;
+}
+.checklist__task:first-child {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: dashed 1px #ddd;
+}
+
+.checklist__task--remove:after{
+  display: inline-block;
+  color: #d66;
+  content: "✖";
+}
+
+.checklist--add-task {
+  border: 1px dashed #bbb;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 3px;
 }
