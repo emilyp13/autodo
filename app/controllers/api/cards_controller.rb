@@ -1,4 +1,9 @@
 class Api::CardsController < ApiController
+  def index
+    cards = Card.where(board_id: params[:board_id])
+    render json: { cards: cards }, status: :ok
+  end
+
   def update
     card = Card.find(params[:id])
     list = List.find(params[:list_id])
