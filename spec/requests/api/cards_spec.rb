@@ -19,7 +19,7 @@ describe "Card API" do
 
     json = JSON.parse(response.body)
     expect(response).to be_success
-    expect(json['cards'].length).to eq(2)
+    expect(json['card']['text']).to eq("card text")
   end
 
   it "deletes cards" do

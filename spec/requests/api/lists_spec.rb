@@ -16,7 +16,7 @@ describe "List API" do
     post '/api/boards/5/lists', params.to_json, { 'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json' }
     json = JSON.parse(response.body)
     expect(response).to be_success
-    expect(json['lists'].length).to eq(2)
+    expect(json['list']['title']).to eq("list title")
   end
 
   it "deletes lists" do

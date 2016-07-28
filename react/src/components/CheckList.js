@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 class CheckList extends Component {
   checkInputKeyPress(evt){
     if(evt.key === 'Enter'){
-      this.props.taskCallbacks.add(this.props.cardId, evt.target.value);
+      this.props.taskCallbacks.add(evt.target.value, this.props.cardId);
       evt.target.value = '';
     }
   }
@@ -13,7 +13,7 @@ class CheckList extends Component {
       <li key={task.id} className="checklist__task">
         <input type="checkbox"
                checked={task.completed}
-               onChange={ this.props.taskCallbacks.toggle.bind(null, task.id, taskIndex) } />
+               onChange={ this.props.taskCallbacks.toggle.bind(null, task.id, taskIndex, this.props.cardId) } />
              {' '}{task.text}{' '}
         <a href="#"
            className="checklist__task--remove"

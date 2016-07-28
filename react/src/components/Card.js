@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { DragSource, DropTarget } from 'react-dnd';
+import update from 'react-addons-update';
 import constants from './constants';
 import CheckList from './CheckList';
 
@@ -39,7 +40,8 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDetails: false
+      showDetails: false,
+      tasks: []
     };
     this.deleteCard = this.deleteCard.bind(this)
     this.linkToEdit = this.linkToEdit.bind(this)
@@ -67,7 +69,7 @@ class Card extends Component {
           {this.props.description}
           <CheckList cardId={this.props.id}
                        tasks={this.props.tasks}
-                       taskCallbacks={this.props.taskCallbacks} />
+                       taskCallbacks={this.props.taskCallbacks}/>
         </div>
       );
     }

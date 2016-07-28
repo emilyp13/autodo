@@ -2,10 +2,11 @@
 
 .fa{
   color: $grey-white;
-  :hover{
+  :hover {
     color: $text;
   }
 }
+
 .icon {
   float: right;
   padding: 5px;
@@ -55,7 +56,7 @@ input[type=checkbox]{
 }
 
 .incomplete-card {
-  color: black;
+  color: $darker-text;
   background: $background;
   border: 1px solid ;
   border-radius: 3px;
@@ -120,14 +121,16 @@ input[type=checkbox]{
 
 .new-list {
   display: inline-block;
-  height: 100%;
   overflow: auto;
-  padding: 0 20px;
-  margin: 10px;
+  padding: 10px 10px 10px 5px;
+  margin: 0;
   position: relative;
   vertical-align: top;
   white-space: normal;
   width: 300px;
+  .input-field{
+    width: 70%;
+  }
 }
 
 .checklist__task {

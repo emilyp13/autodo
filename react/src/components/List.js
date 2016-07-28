@@ -38,8 +38,8 @@ class List extends Component {
           id={card.id}
           text={card.text}
           description={card.description}
-          tasks={tasks.filter((task) => task.card_id === card.id)}
           list_id = {this.props.id}
+          tasks={tasks.filter((task) => task.card_id === card.id)}
           onDelete={this.handleCardDelete}
           cardCallbacks={this.props.cardCallbacks}
           taskCallbacks={this.props.taskCallbacks}
