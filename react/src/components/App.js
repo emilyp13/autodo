@@ -10,7 +10,9 @@ class App extends Component {
     this.state = {
       lists: [],
       cards: [],
-      tasks: []
+      tasks: [],
+      tags: [],
+      cardtags: []
     };
   }
 
@@ -20,7 +22,7 @@ class App extends Component {
 
   getLists(){
     let updateStateOnSuccess = ((data) => {
-      this.setState({ cards: data.cards, lists: data.lists, tasks: data.tasks });
+      this.setState({ cards: data.cards, lists: data.lists, tasks: data.tasks, tags: data.tags, cardtags: data.cardtags });
     }).bind(this);
 
     $.ajax({
@@ -245,6 +247,8 @@ class App extends Component {
       <Board cards={this.state.cards}
           lists={this.state.lists}
           tasks={this.state.tasks}
+          tags={this.state.tags}
+          cardtags={this.state.cardtags}
           cardCallbacks={{
              updateStatus: this.updateCardStatus.bind(this),
              updatePosition: this.updateCardPosition.bind(this),

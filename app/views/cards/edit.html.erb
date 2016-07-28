@@ -8,6 +8,8 @@
 
       <div><%= f.submit%></div>
     <% end %>
+    <%= link_to "Create a new tag", new_board_tag_path(board_id: @card.board.id) %>
+    <%= link_to "Add a new tag", new_card_cardtag_path(card_id: @card.id) %>
   </div>
   <div class="blank small-4 column">blank</div>
 </div>

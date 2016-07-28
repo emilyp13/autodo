@@ -3,7 +3,9 @@ class Api::ListsController < ApiController
     cards = Card.where(board_id: params[:board_id])
     lists = List.where(board_id: params[:board_id])
     tasks = Task.where(board_id: params[:board_id])
-    render json: { lists: lists, cards: cards, tasks: tasks }, status: :ok
+    tags = Tag.where(board_id: params[:board_id])
+    cardtags = Cardtag.where(board_id: params[:board_id])
+    render json: { lists: lists, cards: cards, tasks: tasks, tags: tags, cardtags: cardtags }, status: :ok
   end
 
   def create

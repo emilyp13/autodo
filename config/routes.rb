@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   namespace :api do
     resources :boards do
       resources :lists do
-        resources :cards do
-        end
+        resources :cards
       end
       resources :cards do
+        resources :cardtags
         resources :tasks
       end
       resources :tasks
@@ -23,5 +23,11 @@ Rails.application.routes.draw do
   root to: "devise/sessions#new"
   resources :boards, only: [:index, :show, :new, :create] do
     resources :cards, only: [:edit, :update]
+    resources :tags, only: [:new, :create]
   end
+  resources :cards do
+    resources :cardtags
+  end
+  resources :cardtags
+  resources :tags
 end
