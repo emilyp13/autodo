@@ -28,7 +28,7 @@ class ListForm extends Component {
     return(
       <form className="new-list" onSubmit={this.handleSubmit}>
         <div>
-          <input className="submit-button" type="submit" value="Add List" />
+          <input className="button submit-button" type="submit" value="Add List" />
           <input className="input-field" type="text" placeholder="Add a new list..." value={this.state.text} onChange={this.handleTextChange} />
         </div>
       </form>

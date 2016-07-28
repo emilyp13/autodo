@@ -22,7 +22,7 @@ html,body,#board {
 .top-bar {
   a {
     background-color: $text;
-    color: black;
+    color: $darker-text;
   }
   a:hover {
     color: grey;
@@ -42,17 +42,26 @@ html,body,#board {
   padding-left: 20px;
   padding-right: 20px;
   height: 100%;
+  color: $darker-text;
 }
 
 .top-bar-right {
   padding-top: 5px;
 }
 .button {
-  background-color: $text;
+  background-color: $buttons;
+}
+
+.button:hover{
+  background-color: #FA6900;
 }
 
 .logo {
   font-size: 2em;
   font-weight: bold;
   font-family: 'Quicksand', sans-serif;
+}
+
+.fa-plus-square{
+  color: $buttons;
 }

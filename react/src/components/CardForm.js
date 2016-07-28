@@ -28,7 +28,7 @@ class CardForm extends Component {
     return(
       <form className="cardForm" onSubmit={this.handleSubmit}>
         <div>
-          <input className="submit-button" type="submit" value="Add Card" />
+          <input className="button submit-button" type="submit" value="Add Card" />
           <input className="input-field" type="text" placeholder="Add a new card..." value={this.state.text} onChange={this.handleTextChange} />
         </div>
       </form>

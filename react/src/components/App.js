@@ -12,53 +12,112 @@ class App extends Component {
       cards: [],
       tasks: []
     };
-
-    this.handleListSubmit = this.handleListSubmit.bind(this)
-    this.getLists = this.getLists.bind(this)
-    this.handleListDelete = this.handleListDelete.bind(this)
-
-    this.handleCardSubmit = this.handleCardSubmit.bind(this)
-    this.populateState = this.populateState.bind(this)
-    this.getCards = this.getCards.bind(this)
-    this.handleCardDelete = this.handleCardDelete.bind(this)
-
-    this.updateCardStatus = throttle(this.updateCardStatus.bind(this));
-    this.updateCardPosition = throttle(this.updateCardPosition.bind(this),500);
-    this.persistCardDrag = this.persistCardDrag.bind(this);
   }
 
+  componentDidMount() {
+    this.getLists();
+  }
 
-  addTask(cardId, taskName){
-    let newTask = {id:Date.now(), name:taskName, completed:false};
-    let nextState = update(this.state.tasks, {$push: [newTask] });
-    this.setState({tasks:nextState});
+  getLists(){
+    let updateStateOnSuccess = ((data) => {
+      this.setState({ cards: data.cards, lists: data.lists, tasks: data.tasks });
+    }).bind(this);
+
     $.ajax({
-      url: "/api" + window.location.pathname + "/cards/" + cardId + "/tasks",
-      dataType: 'application/json',
+      method: "GET",
+      url: "/api" + window.location.pathname + "/lists",
+      contentType: "application/json"
+    })
+    .done(data => {
+      updateStateOnSuccess(data);
+    });
+  }
+
+  handleCardSubmit(card) {
+    let updateStateOnSuccess = ((data) => {
+      let newCard = {id: data.card.id,
+                    text: data.card.text,
+                    completed: data.card.completed,
+                    board_id: data.card.board_id,
+                    description: data.card.description,
+                    list_id: data.card.list_id};
+      let nextState = update(this.state.cards, {$push: [newCard] });
+      this.setState({cards:nextState});
+    }).bind(this);
+
+    $.ajax({
+      url: "/api" + window.location.pathname + "/cards",
+      dataType: 'json',
       type: 'POST',
-      data: newTask,
-      success: this.setState({tasks:nextState})
+      data: card,
+      success: function(data, textStatus, xhr) {
+        console.log("success");
+        updateStateOnSuccess(data);
+      },
+      error: function(xhr, status, error) {
+        console.log("error");
+      }
     })
-    this.getCards();
   }
 
-  deleteTask(taskId, taskIndex){
-    let prevState = this.state;
-    let nextState = update(this.state, {tasks: {$splice: [[taskIndex,1]] }});
-    this.setState({tasks:nextState});
+
+  handleCardDelete(deletedCardId) {
+    let updateStateOnSuccess = ((data) => {
+      this.setState({cards: data.cards});
+    }).bind(this);
+
     $.ajax({
-      url: "/api" + window.location.pathname + "/tasks/" + taskId,
-      dataType: 'application/json',
+      url: "/api" + window.location.pathname + "/cards/" + deletedCardId,
       method: 'DELETE',
-      success: this.populateState
+      success: function(data) {
+        console.log("success");
+        updateStateOnSuccess(data);
+      }
     })
-    this.getCards();
   }
 
-  toggleTask(taskId, taskIndex){
-    let prevState = this.state;
+  handleListSubmit(list) {
+    let updateStateOnSuccess = ((data) => {
+      let newList = {id: data.list.id,
+                    title: data.list.title,
+                    board_id: data.list.board_id};
+      let nextState = update(this.state.lists, {$push: [newList] });
+      this.setState({lists:nextState});
+    }).bind(this);
+
+    $.ajax({
+      url: "/api" + window.location.pathname + "/lists",
+      dataType: 'json',
+      type: 'POST',
+      data: list,
+      success: function(data, textStatus, xhr) {
+        console.log("success");
+        updateStateOnSuccess(data);
+      },
+      error: function(xhr, status, error) {
+        console.log("error");
+      }
+    })
+  }
+
+  handleListDelete(deletedListId) {
+    let updateStateOnSuccess = ((data) => {
+      this.setState({lists: data.lists});
+    }).bind(this);
+
+    $.ajax({
+      url: "/api" + window.location.pathname + "/lists/" + deletedListId,
+      method: 'DELETE'
+    })
+    .done(data => {
+      updateStateOnSuccess(data);
+    })
+  }
+
+  toggleTask(taskId, taskIndex, cardId){
     let newDoneValue;
-    let nextState = update(this.state.tasks, {
+    let tasks = this.state.tasks.filter((task) => task.card_id === cardId);
+    let nextState = update(tasks, {
           [taskIndex]: {
             completed: { $apply: (completed) => {
               newDoneValue = !completed
@@ -68,89 +127,64 @@ class App extends Component {
         }
       }
     );
-    this.setState({tasks:nextState});
+
+    let updateStateOnSuccess = ((data) => {
+      this.setState({tasks: data.tasks});
+    }).bind(this);
+
     let changedTask = nextState[taskIndex];
     $.ajax({
       method: "POST",
       url: "/api" + window.location.pathname + "/tasks/" + taskId,
       data: changedTask,
       headers: {"X-HTTP-Method-Override": "PUT"},
-      dataType: "application/json",
-      success: this.populateState
+      dataType: "json",
+      success: function(data) {
+        console.log("success");
+        updateStateOnSuccess(data);
+      }
     })
-    this.getCards();
   }
 
-  handleCardSubmit(card) {
-    let newCard = {id:card.id, text:card.text, completed:card.completed};
-    let nextState = update(this.state.cards, {$push: [newCard] });
-    this.setState({cards:nextState});
+  addTask(taskName, cardId){
+    let updateStateOnSuccess = ((data) => {
+      let newTask = {id: data.task.id,
+                    text: data.task.text,
+                    board_id: data.task.board_id,
+                    card_id: data.task.card_id};
+      let nextState = update(this.state.tasks, {$push: [newTask] });
+      this.setState({tasks:nextState});
+    }).bind(this);
+
+    let taskData = {id:Date.now(), name:taskName, completed:false};
     $.ajax({
-      url: "/api" + window.location.pathname + "/cards",
-      dataType: 'application/json',
+      url: "/api" + window.location.pathname + "/cards/" + cardId + "/tasks",
+      dataType: 'json',
       type: 'POST',
-      data: card,
-      success: this.setState({cards:nextState})
-    })
-    this.getCards();
-  }
-
-  populateState(data){
-    this.setState({ cards: data.cards, lists: data.lists, tasks: data.tasks });
-  }
-
-  getCards(){
-    $.ajax({
-      method: "GET",
-      url: "/api" + window.location.pathname + "/cards",
-      contentType: "application/json",
-      success: this.populateState
+      data: taskData,
+      success: function(data, textStatus, xhr) {
+        console.log("success");
+        updateStateOnSuccess(data);
+      },
+      error: function(xhr, status, error) {
+        console.log("error");
+      }
     })
   }
 
-  handleCardDelete(deletedCardId) {
+  deleteTask(taskId, taskIndex){
+    let updateStateOnSuccess = ((data) => {
+      this.setState({tasks: data.tasks});
+    }).bind(this);
+
     $.ajax({
-      url: "/api" + window.location.pathname + "/cards/" + deletedCardId,
+      url: "/api" + window.location.pathname + "/tasks/" + taskId,
       method: 'DELETE',
-      success: this.getCards
+      success: function(data) {
+        console.log("success");
+        updateStateOnSuccess(data);
+      }
     })
-  }
-
-  handleListSubmit(list) {
-    let newList = {id:list.id, title:list.title};
-    let nextState = update(this.state.lists, {$push: [newList] });
-    this.setState({lists:nextState});
-    $.ajax({
-      url: "/api" + window.location.pathname + "/lists",
-      dataType: 'application/json',
-      type: 'POST',
-      data: list,
-      success: this.setState({lists:nextState})
-    })
-    this.getLists();
-  }
-
-  handleListDelete(deletedListId) {
-    $.ajax({
-      url: "/api" + window.location.pathname + "/lists/" + deletedListId,
-      method: 'DELETE'
-    })
-    .done(this.getLists)
-  }
-
-  componentDidMount() {
-    this.getLists();
-  }
-
-  getLists(){
-    $.ajax({
-      method: "GET",
-      url: "/api" + window.location.pathname + "/lists",
-      contentType: "application/json"
-    })
-    .done(data => {
-      this.populateState(data);
-    });
   }
 
   updateCardStatus(cardId, listId) {
@@ -211,29 +245,27 @@ class App extends Component {
       <Board cards={this.state.cards}
           lists={this.state.lists}
           tasks={this.state.tasks}
+          cardCallbacks={{
+             updateStatus: this.updateCardStatus.bind(this),
+             updatePosition: this.updateCardPosition.bind(this),
+             persistCardDrag: this.persistCardDrag.bind(this),
+             handleCardSubmit: this.handleCardSubmit.bind(this),
+             onCardDelete: this.handleCardDelete.bind(this)
+          }}
           taskCallbacks={{
              toggle: this.toggleTask.bind(this),
              delete: this.deleteTask.bind(this),
              add: this.addTask.bind(this)
            }}
-          cardCallbacks={{
-             updateStatus: this.updateCardStatus,
-             updatePosition: this.updateCardPosition,
-             persistCardDrag: this.persistCardDrag,
-             handleCardSubmit: this.handleCardSubmit,
-             getCards: this.getCards,
-             onCardDelete: this.handleCardDelete
-          }}
           listCallbacks={{
-            onListSubmit: this.handleListSubmit,
-            getLists: this.getLists,
-            onListDelete: this.handleListDelete
+            onListSubmit: this.handleListSubmit.bind(this),
+            onListDelete: this.handleListDelete.bind(this)
           }}
           cardFormCallbacks={{
-            onCardSubmit: this.handleCardSubmit
+            onCardSubmit: this.handleCardSubmit.bind(this)
           }}
           listFormCallbacks={{
-            onListSubmit: this.handleListSubmit
+            onListSubmit: this.handleListSubmit.bind(this)
           }}
       />
     );
