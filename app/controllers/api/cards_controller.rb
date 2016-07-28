@@ -17,7 +17,7 @@ class Api::CardsController < ApiController
     new_card.list = List.find(params[:list_id])
     new_card.board = Board.find(params[:board_id])
     new_card.save
-    render json: {card: new_card}, status: :ok
+    render json: { card: new_card }, status: :ok
   end
 
   def destroy
