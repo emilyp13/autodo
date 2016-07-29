@@ -45,7 +45,6 @@ class Card extends Component {
     };
     this.deleteCard = this.deleteCard.bind(this)
     this.linkToEdit = this.linkToEdit.bind(this)
-    this.getTagLabel = this.getTagLabel.bind(this)
   }
 
   toggleDetails() {
@@ -58,10 +57,6 @@ class Card extends Component {
 
   linkToEdit() {
     window.location.pathname += "/cards/" + this.props.id + "/edit"
-  }
-
-  getTagLabel(data, data2) {
-    debugger;
   }
 
   render() {

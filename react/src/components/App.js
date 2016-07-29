@@ -62,7 +62,6 @@ class App extends Component {
     })
   }
 
-
   handleCardDelete(deletedCardId) {
     let updateStateOnSuccess = ((data) => {
       this.setState({cards: data.cards});
@@ -189,6 +188,14 @@ class App extends Component {
     })
   }
 
+  handleTagClick(tagId){
+    let cardtags = this.state.cardtags.filter((cardtag) => cardtag.tag_id === tagId);
+    let newState = this.state.cards.filter((card) => {
+      debugger;
+
+    })
+  }
+
   updateCardStatus(cardId, listId) {
     let cardIndex = this.state.cards.findIndex((card)=>card.id === cardId);
     let card = this.state.cards[cardIndex]
@@ -270,6 +277,9 @@ class App extends Component {
           }}
           listFormCallbacks={{
             onListSubmit: this.handleListSubmit.bind(this)
+          }}
+          tagCallbacks={{
+            filterTags: this.handleTagClick.bind(this)
           }}
       />
     );

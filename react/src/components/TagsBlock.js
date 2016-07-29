@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Tag from './Tag.js';
 
 class TagsBlock extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class TagsBlock extends Component {
       return(
         <div>
           <span>Tags:{' '}</span>
-          {tag.label}
+          <Tag key={tag.id} id={tag.id} tagCallbacks={this.props.tagCallbacks} tag={tag.label}/>
         </div>
       );
     });
