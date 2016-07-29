@@ -7,6 +7,6 @@
 </div>
 <div >
   <% @boards.each do |board| %>
-  <%= link_to board.title, board_path(board), class: "callout" %>
+    <%= link_to board.title, board_path(board), class: "callout" %>
   <% end %>
 </div>

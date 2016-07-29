@@ -31,6 +31,10 @@ html,body,#board {
   background-color: $text;
 }
 
+[type=color], [type=date], [type=datetime-local], [type=datetime], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel], [type=time], [type=url], [type=week], textarea {
+  border-color: $darker-text;
+}
+
 .header {
   position: fixed;
   width: 100%;
@@ -48,11 +52,16 @@ html,body,#board {
 .top-bar-right {
   padding-top: 5px;
 }
+
 .button {
   background-color: $buttons;
 }
 
 .button:hover{
+  background-color: #FA6900;
+}
+
+.button:focus{
   background-color: #FA6900;
 }
 
@@ -64,4 +73,9 @@ html,body,#board {
 
 .fa-plus-square {
   color: $buttons;
+}
+
+.callout {
+  margin: 0;
+  text-align: center;
 }
