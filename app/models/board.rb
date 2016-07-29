@@ -11,7 +11,7 @@ class Board < ActiveRecord::Base
     first_list_date = board.lists.first.title.to_datetime
     if (Date.today - 1 > first_list_date)
       board.lists.first.destroy
-      new_list_date = (first_list_date + 7).strftime('%a %b %d')
+      new_list_date = (first_list_date + 8).strftime('%a %b %d')
       List.create(title: new_list_date, board_id: board.id)
     end
   end

@@ -7,6 +7,9 @@
 </div>
 <div >
   <% @boards.each do |board| %>
-  <%= link_to board.title, board_path(board), class: "callout" %>
+    <div class="callout">
+      <%= link_to board.title, board_path(board)%>
+      <%= link_to 'Delete', board, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
   <% end %>
 </div>

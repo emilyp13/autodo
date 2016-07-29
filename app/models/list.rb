@@ -6,7 +6,7 @@ class List < ActiveRecord::Base
 
   def self.generateCalendar(date, boardId)
     i = 0
-    while i < 7 do
+    while i < 8 do
       new_date = date + i
       date_title = new_date.strftime('%a %b %d')
       List.create(title: date_title, board_id: boardId)
