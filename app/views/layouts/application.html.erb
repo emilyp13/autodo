@@ -13,7 +13,11 @@
 <body>
 <% if request.env['PATH_INFO'] == "/" || request.env['PATH_INFO'] == "/users/sign_in" || request.env['PATH_INFO'] == "/users/sign_up" %>
   <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg%>
+    <% if name == "success" || name == "notice" %>
+      <%= content_tag :div, msg, class: "callout success" %>
+    <% else %>
+      <%= content_tag :div, msg, class: "callout alert" %>
+    <% end %>
   <% end %>
   <div class="landing-page">
     <%= yield %>
@@ -43,7 +47,11 @@
 
   <div id="body">
     <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg%>
+      <% if name == "success" || name == "notice" %>
+        <%= content_tag :div, msg, class: "callout success" %>
+      <% else %>
+        <%= content_tag :div, msg, class: "callout alert" %>
+      <% end %>
     <% end %>
     <%= yield %>
   </div>
