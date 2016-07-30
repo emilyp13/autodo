@@ -7,19 +7,23 @@
   </span>
 </div>
 <div >
-  <div class="row">
-    <% @boards.each do |board| %>
+  <% @boards.each do |board| %>
     <div class="small-4 columns">
       <div class="board">
-        <% if board.category == "calendar" %>
-          <i class="board-icon fa fa-calendar"></i>
-        <% elsif board.category == "kanban" %>
-          <i class="board-icon fa fa-tasks"></i>
-        <% end %>
+        <span class="board-icon-div">
+          <% if board.category == "calendar" %>
+            <i class="board-icon fa fa-calendar"></i>
+          <% elsif board.category == "kanban" %>
+            <i class="board-icon fa fa-tasks"></i>
+          <% elsif board.category == "custom" %>
+            <i class="board-icon fa fa-user"></i>
+          <% end %>
+        </span>
         <span class="board-title"><%= link_to board.title, board_path(board)%></span>
-        <%= link_to "", board, method: :delete, data: { confirm: 'Are you sure?' }, class: "board-trash fa fa-trash-o" %>
+        <span class="board-trash-div">
+          <%= link_to "", board, method: :delete, data: { confirm: 'Are you sure?' }, class: "board-trash fa fa-trash-o" %>
+        </span>
       </div>
     </div>
-    <% end %>
-  </div>
+  <% end %>
 </div>
