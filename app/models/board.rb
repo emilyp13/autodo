@@ -5,7 +5,7 @@ class Board < ActiveRecord::Base
   belongs_to :user
 
   validates :title, presence: true
-  validates_inclusion_of :category, in: ["calendar", "kanban"]
+  validates_inclusion_of :category, in: %w(calendar kanban custom)
 
   def self.check_today(board)
     first_list_date = board.lists.first.title.to_datetime

@@ -22,6 +22,8 @@ class BoardsController < ApplicationController
     if @board.save
       if @board.category == "calendar"
         List.generate_calendar(Date.today, @board.id)
+      elsif @board.category == "kanban"
+        List.generate_kanban(@board.id)
       end
       redirect_to root_path
     else

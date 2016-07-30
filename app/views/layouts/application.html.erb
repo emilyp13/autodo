@@ -33,7 +33,7 @@
       </div>
       <div class="top-bar-right">
         <ul class="menu">
-          <li><%= link_to "Home", boards_path %></li>
+          <li><%= link_to "Dashboard", boards_path %></li>
           <% if user_signed_in? %>
           <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
           <% else %>

@@ -13,4 +13,10 @@ class List < ActiveRecord::Base
       i += 1
     end
   end
+
+  def self.generate_kanban(board_id)
+    List.create(title: "To Do", board_id: board_id)
+    List.create(title: "In Progress", board_id: board_id)
+    List.create(title: "Completed", board_id: board_id)
+  end
 end
