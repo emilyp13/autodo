@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def send_daily_email
+  def self.send_daily_email
     User.all.each do |user|
       UserMailer.daily_email(user).deliver_now
     end
