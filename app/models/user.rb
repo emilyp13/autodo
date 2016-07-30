@@ -4,4 +4,10 @@ class User < ActiveRecord::Base
   has_many :boards
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def send_daily_email
+    User.all.each do |user|
+      UserMailer.daily_email(user)
+    end
+  end
 end
