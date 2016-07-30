@@ -7,7 +7,7 @@ class Board < ActiveRecord::Base
   validates :title, presence: true
   validates_inclusion_of :category, in: ["calendar", "kanban"]
 
-  def self.checkToday(board)
+  def self.check_today(board)
     first_list_date = board.lists.first.title.to_datetime
     if (Date.today - 1 > first_list_date)
       board.lists.first.destroy
