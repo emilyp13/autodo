@@ -75,7 +75,12 @@ html,body,#board {
   color: $buttons;
 }
 
-.callout {
+.board-icon {
+  padding-right: 50px;
+  color: $buttons;
+}
+
+.flash {
   margin: 0;
   text-align: center;
 }
