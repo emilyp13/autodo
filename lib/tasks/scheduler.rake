@@ -1,3 +1,3 @@
 task :send_email => :environment do
-  UserMailer.daily_email(user).deliver_now
+  User.send_daily_email
 end

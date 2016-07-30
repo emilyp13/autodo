@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   def send_daily_email
     User.all.each do |user|
-      UserMailer.daily_email(user)
+      UserMailer.daily_email(user).deliver_now
     end
   end
 end
