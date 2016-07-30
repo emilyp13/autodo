@@ -11,12 +11,13 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
 </head>
 <body>
+
 <% if request.env['PATH_INFO'] == "/" || request.env['PATH_INFO'] == "/users/sign_in" || request.env['PATH_INFO'] == "/users/sign_up" %>
   <% flash.each do |name, msg| %>
     <% if name == "success" || name == "notice" %>
-      <%= content_tag :div, msg, class: "callout success" %>
+      <%= content_tag :div, msg, class: "flash callout success" %>
     <% else %>
-      <%= content_tag :div, msg, class: "callout alert" %>
+      <%= content_tag :div, msg, class: "flash callout alert" %>
     <% end %>
   <% end %>
   <div class="landing-page">
@@ -48,9 +49,9 @@
   <div id="body">
     <% flash.each do |name, msg| %>
       <% if name == "success" || name == "notice" %>
-        <%= content_tag :div, msg, class: "callout success" %>
+        <%= content_tag :div, msg, class: "flash callout success" %>
       <% else %>
-        <%= content_tag :div, msg, class: "callout alert" %>
+        <%= content_tag :div, msg, class: "flash callout alert" %>
       <% end %>
     <% end %>
     <%= yield %>

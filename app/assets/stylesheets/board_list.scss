@@ -9,3 +9,20 @@
 .new-board {
   padding-left: 50px;
 }
+
+.board {
+  color: $darker-text;
+  background: $background;
+  border: 1px solid $text;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+  text-align: center;
+}
+
+.board-trash {
+  padding-left: 50px;
+}

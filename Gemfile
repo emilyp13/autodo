@@ -20,6 +20,10 @@ group :development, :test do
   gem 'foreman'
 end
 
+group :development do
+  gem 'mailcatcher'
+end
+
 group :test do
   gem 'launchy', require: false
   gem 'coveralls', require: false

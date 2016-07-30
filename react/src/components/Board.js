@@ -10,6 +10,13 @@ class Board extends Component {
   }
 
   render() {
+    let new_list_style;
+    if (this.props.category === "calendar") {
+      new_list_style = "blank"
+    } else {
+      new_list_style = ""
+    }
+
     let cards = this.props.cards
     let lists = this.props.lists.map(list => {
       return(
@@ -17,6 +24,7 @@ class Board extends Component {
           key={list.id}
           id={list.id}
           title={list.title}
+          category={this.props.category}
           cards={cards.filter((card) => card.list_id === list.id)}
           tasks={this.props.tasks}
           cardCallbacks={this.props.cardCallbacks}
@@ -31,7 +39,7 @@ class Board extends Component {
   return(
     <div className="list-block">
     {lists}
-    <ListForm listFormCallbacks={this.props.listFormCallbacks}/>
+    <span className={new_list_style}><ListForm listFormCallbacks={this.props.listFormCallbacks}/></span>
     </div>
   );
   };

@@ -42,6 +42,20 @@ input[type=checkbox]{
   width: 300px;
 }
 
+.yesterday-list {
+  border: 1px solid $grey;
+  background-color: rgba(255,0,0,0.2);
+  display: inline-block;
+  height: 100%;
+  overflow: auto;
+  padding: 0 20px;
+  margin: 10px 20px 10px 0;
+  position: relative;
+  vertical-align: top;
+  white-space: normal;
+  width: 300px;
+}
+
 .list:not(:last-child):after {
   background: linear-gradient(to bottom, $ligth-grey-white 0%, $grey-white 50%, $ligth-grey-white 100%) fixed;
   content: '';
