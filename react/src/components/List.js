@@ -69,6 +69,8 @@ class List extends Component {
           text={card.text}
           description={card.description}
           list_id = {this.props.id}
+          tags = {this.props.tags}
+          cardtags={this.props.cardtags.filter((tag) => tag.card_id === card.id)}
           tasks={tasks.filter((task) => task.card_id === card.id)}
           onDelete={this.handleCardDelete}
           cardCallbacks={this.props.cardCallbacks}

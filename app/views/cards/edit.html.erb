@@ -6,8 +6,11 @@
       <%= f.text_field :text, placeholder: "Text" %>
       <%= f.text_field :description, placeholder: "Description" %>
 
-      <div class="secondary-button"><%= f.submit%></div>
+      <div class="log-in"><%= f.submit%></div>
     <% end %>
+    <div class="shared-links">
+      <%= link_to "Add Tag to Card", new_card_cardtag_path(card_id: @card.id), class: "secondary-button" %><br />
+    </div>
   </div>
   <div class="blank small-4 column">blank</div>
 </div>

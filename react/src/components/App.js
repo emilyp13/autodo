@@ -11,8 +11,11 @@ class App extends Component {
       lists: [],
       cards: [],
       tasks: [],
+      tags: [],
+      cardtags: [],
       category: ""
     };
+
   }
 
   componentDidMount() {
@@ -21,7 +24,7 @@ class App extends Component {
 
   getLists(){
     let updateStateOnSuccess = ((data) => {
-      this.setState({ cards: data.cards, lists: data.lists, tasks: data.tasks, category: data.category });
+      this.setState({ cards: data.cards, lists: data.lists, tasks: data.tasks, tags: data.tags, cardtags: data.cardtags, category: data.category });
     }).bind(this);
 
     $.ajax({
@@ -60,7 +63,6 @@ class App extends Component {
       }
     })
   }
-
 
   handleCardDelete(deletedCardId) {
     let updateStateOnSuccess = ((data) => {
@@ -188,6 +190,23 @@ class App extends Component {
     })
   }
 
+
+  handleTagClick(tagId){
+    let cardIds = this.state.cardtags.map((cardtag) => {
+      if (cardtag.tag_id === tagId) {
+        return(cardtag.card_id)
+      }
+    });
+
+    let newState = this.state.cards.filter((card) => cardIds.includes(card.id))
+    this.setState({cards: newState});
+  }
+
+  resetTagFilter(){
+    this.getLists()
+  }
+
+
   updateCardStatus(cardId, listId) {
     let cardIndex = this.state.cards.findIndex((card)=>card.id === cardId);
     let card = this.state.cards[cardIndex]
@@ -246,6 +265,8 @@ class App extends Component {
       <Board cards={this.state.cards}
           lists={this.state.lists}
           tasks={this.state.tasks}
+          tags={this.state.tags}
+          cardtags={this.state.cardtags}
           category={this.state.category}
           cardCallbacks={{
              updateStatus: this.updateCardStatus.bind(this),
@@ -268,6 +289,10 @@ class App extends Component {
           }}
           listFormCallbacks={{
             onListSubmit: this.handleListSubmit.bind(this)
+          }}
+          tagCallbacks={{
+            filterTags: this.handleTagClick.bind(this),
+            resetTags: this.resetTagFilter.bind(this)
           }}
       />
     );

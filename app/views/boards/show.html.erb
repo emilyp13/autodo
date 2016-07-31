@@ -1,3 +1,7 @@
-<span class="title"><%= @board.title %></span>
+<span class="title"><%= @board.title %></span><br/>
+<span class="new-tag-link">
+  <i class="fa fa-plus"></i>
+  <%= link_to "Create New Tag", new_board_tag_path(@board), class: "secondary-button" %>
+</span>
 <div id="board">
 </div>

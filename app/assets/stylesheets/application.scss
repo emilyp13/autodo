@@ -83,3 +83,17 @@ html,body,#board {
   margin: 0;
   text-align: center;
 }
+
+.tag {
+  list-style: none;
+  display: inline;
+  padding: 10px;
+}
+
+.new-tag-link {
+  padding: 20px 20px 20px 30px;
+}
+
+.tag-reset {
+  padding-left: 5px;
+}

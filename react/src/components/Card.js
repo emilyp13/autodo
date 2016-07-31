@@ -41,7 +41,7 @@ class Card extends Component {
     super(props);
     this.state = {
       showDetails: false,
-      tasks: []
+      tags: []
     };
     this.deleteCard = this.deleteCard.bind(this)
     this.linkToEdit = this.linkToEdit.bind(this)
@@ -61,15 +61,25 @@ class Card extends Component {
 
   render() {
     const { connectDragSource, connectDropTarget } = this.props;
+    let tags = this.props.tags;
+    let cardtags = this.props.cardtags.map((cardtag) => {
+      for (var i = 0; i < tags.length; i++) {
+        if (tags[i].id === cardtag.tag_id ) {
+          return <span className="card-tag">{tags[i].label}</span>
+        }
+      }
+    })
+
 
     let cardDetails;
     if (this.state.showDetails) {
       cardDetails = (
         <div className="card-details">
-          {this.props.description}
+          <div>{this.props.description}</div>
           <CheckList cardId={this.props.id}
                        tasks={this.props.tasks}
                        taskCallbacks={this.props.taskCallbacks}/>
+           <div className="card-tags-block">{cardtags}</div>
         </div>
       );
     }

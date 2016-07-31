@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="blank small-4 column">blank</div>
+  <div class="small-4 column">
+    <h3>Create Tag</h3>
+    <%= form_for([@tag.board, @tag]) do |f| %>
+      <%= f.text_field :label, placeholder: "Label" %>
+      <%= f.text_field :color, placeholder: "Color" %>
+
+      <div><%= f.submit%></div>
+    <% end %>
+  </div>
+  <div class="blank small-4 column">blank</div>
+</div>
