@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   root to: "devise/sessions#new"
-  resources :boards, only: [:index, :show, :new, :create] do
+  resources :boards, only: [:index, :show, :new, :create, :destroy] do
     resources :cards, only: [:edit, :update]
     resources :tags, only: [:new, :create]
   end

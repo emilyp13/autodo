@@ -1,12 +1,29 @@
 <div class="board-list-header">
   <span class="title">My Boards</span>
   <span class="new-board">
-    <i class="fa fa-plus-square" aria-hidden="true"></i>
+    <i class="fa fa-plus-square" aria-hidden="true">
     <%= link_to "New Board", new_board_path%>
+    </i>
   </span>
 </div>
 <div >
   <% @boards.each do |board| %>
-  <%= link_to board.title, board_path(board), class: "callout" %>
+    <div class="small-4 columns">
+      <div class="board">
+        <span class="board-icon-div">
+          <% if board.category == "calendar" %>
+            <i class="board-icon fa fa-calendar"></i>
+          <% elsif board.category == "kanban" %>
+            <i class="board-icon fa fa-tasks"></i>
+          <% elsif board.category == "custom" %>
+            <i class="board-icon fa fa-user"></i>
+          <% end %>
+        </span>
+        <span class="board-title"><%= link_to board.title, board_path(board)%></span>
+        <span class="board-trash-div">
+          <%= link_to "", board, method: :delete, data: { confirm: 'Are you sure?' }, class: "board-trash fa fa-trash-o" %>
+        </span>
+      </div>
+    </div>
   <% end %>
 </div>

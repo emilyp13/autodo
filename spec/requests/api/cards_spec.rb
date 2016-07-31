@@ -2,7 +2,7 @@ describe "Card API" do
   before do
     @board = FactoryGirl.create(:board, id: 6)
     @list = FactoryGirl.create(:list, board: @board)
-    @card = FactoryGirl.create(:card, id: 3, board: @board, list: @list)
+    @card = FactoryGirl.create(:card, id: 7, board: @board, list: @list)
   end
 
   it 'gets cards' do
@@ -23,7 +23,7 @@ describe "Card API" do
   end
 
   it "deletes cards" do
-    delete '/api/boards/6/cards/3'
+    delete '/api/boards/6/cards/7'
 
     json = JSON.parse(response.body)
     expect(response).to be_success
@@ -33,7 +33,7 @@ describe "Card API" do
   it "updates cards" do
     params = { text: "card text", list_id: @list.id }
 
-    patch '/api/boards/6/cards/3', params.to_json, { 'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json' }
+    patch '/api/boards/6/cards/7', params.to_json, { 'ACCEPT' => "application/json", 'CONTENT_TYPE' => 'application/json' }
 
     json = JSON.parse(response.body)
     expect(response).to be_success

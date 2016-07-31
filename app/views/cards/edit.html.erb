@@ -6,7 +6,7 @@
       <%= f.text_field :text, placeholder: "Text" %>
       <%= f.text_field :description, placeholder: "Description" %>
 
-      <div><%= f.submit%></div>
+      <div class="secondary-button"><%= f.submit%></div>
     <% end %>
     <%= link_to "Create a new tag", new_board_tag_path(board_id: @card.board.id) %>
     <%= link_to "Add a new tag", new_card_cardtag_path(card_id: @card.id) %>

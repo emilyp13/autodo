@@ -11,9 +11,14 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
 </head>
 <body>
+
 <% if request.env['PATH_INFO'] == "/" || request.env['PATH_INFO'] == "/users/sign_in" || request.env['PATH_INFO'] == "/users/sign_up" %>
   <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg%>
+    <% if name == "success" || name == "notice" %>
+      <%= content_tag :div, msg, class: "flash callout success" %>
+    <% else %>
+      <%= content_tag :div, msg, class: "flash callout alert" %>
+    <% end %>
   <% end %>
   <div class="landing-page">
     <%= yield %>
@@ -28,7 +33,7 @@
       </div>
       <div class="top-bar-right">
         <ul class="menu">
-          <li><%= link_to "Home", boards_path %></li>
+          <li><%= link_to "Dashboard", boards_path %></li>
           <% if user_signed_in? %>
           <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
           <% else %>
@@ -43,7 +48,11 @@
 
   <div id="body">
     <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg%>
+      <% if name == "success" || name == "notice" %>
+        <%= content_tag :div, msg, class: "flash callout success" %>
+      <% else %>
+        <%= content_tag :div, msg, class: "flash callout alert" %>
+      <% end %>
     <% end %>
     <%= yield %>
   </div>

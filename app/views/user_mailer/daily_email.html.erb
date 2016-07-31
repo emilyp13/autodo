@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Today's Schedule for <%= @user.email %></h1>
+    <% @boards.each do|board| %>
+      <div class="callout">
+        <h4><%= board.title %><h4>
+          <ul>
+            <% @lists.where(board_id: board.id).each do |list| %>
+              <% list.cards.each do |card| %>
+                <li><%= card.text %></li>
+              <% end %>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
+  </body>
+</html>

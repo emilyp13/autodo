@@ -7,6 +7,7 @@ feature "user creates a board" do
     click_link "New Board"
 
     fill_in "Title", with: "my new board"
+    choose('board_category_kanban')
     click_button "Create Board"
     expect(page).to have_content("my new board")
   end

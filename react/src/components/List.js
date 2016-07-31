@@ -20,6 +20,9 @@ let collect = (connect, monitor) => {
 class List extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      yesterday: false
+    }
 
     this.deleteList = this.deleteList.bind(this)
   }
@@ -28,9 +31,36 @@ class List extends Component {
     this.props.listCallbacks.onListDelete(this.props.id);
   }
 
+  componentWillMount(){
+    if (this.props.category == "calendar") {
+      let yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      let list_date = new Date(this.props.title);
+      if (list_date.getDate() === yesterday.getDate()) {
+        this.setState({yesterday: true});
+      }
+    }
+  }
+
   render() {
     const { connectDropTarget } = this.props;
     let tasks = this.props.tasks;
+    let list_style;
+    if (this.state.yesterday) {
+      list_style = "yesterday-list"
+    } else {
+      list_style = "list"
+    }
+
+    let delete_button, new_list_style;
+    if (this.props.category === "calendar") {
+      delete_button = "blank"
+      new_list_style = "blank"
+    } else {
+      delete_button = "icon fa fa-trash-o"
+      new_list_style = ""
+    }
+
     let cards = this.props.cards.map(card => {
       return(
         <Card
@@ -50,10 +80,10 @@ class List extends Component {
     });
 
     return connectDropTarget(
-      <div className="list">
+      <div className={list_style}>
         <div className="list-header">
         {this.props.title}
-        <a className="icon fa fa-trash-o" type="submit" onClick={this.deleteList}></a>
+        <a className={delete_button} type="submit" onClick={this.deleteList}></a>
         </div>
         <div className="card-block">
           {cards}

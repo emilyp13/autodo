@@ -11,6 +11,13 @@ class Board extends Component {
   }
 
   render() {
+    let new_list_style;
+    if (this.props.category === "calendar") {
+      new_list_style = "blank"
+    } else {
+      new_list_style = ""
+    }
+
     let cards = this.props.cards
     let lists = this.props.lists.map(list => {
       return(
@@ -18,6 +25,7 @@ class Board extends Component {
           key={list.id}
           id={list.id}
           title={list.title}
+          category={this.props.category}
           cards={cards.filter((card) => card.list_id === list.id)}
           cardtags={this.props.cardtags}
           tags={this.props.tags}
@@ -29,19 +37,19 @@ class Board extends Component {
           onDelete={this.handleListDelete}
         />
       );
-  });
+    });
 
-  return(
-    <div>
-      <TagsBlock tags={this.props.tags}
-        tagCallbacks={this.props.tagCallbacks}
-      />
-      <div className="list-block">
-        {lists}
-        <ListForm listFormCallbacks={this.props.listFormCallbacks}/>
+    return(
+      <div>
+        <TagsBlock tags={this.props.tags}
+          tagCallbacks={this.props.tagCallbacks}
+        />
+        <div className="list-block">
+          {lists}
+          <span className={new_list_style}><ListForm listFormCallbacks={this.props.listFormCallbacks}/></span>
+        </div>
       </div>
-    </div>
-  );
+    );
   };
 };
 

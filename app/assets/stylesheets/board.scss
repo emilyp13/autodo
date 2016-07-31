@@ -2,9 +2,10 @@
 
 .fa{
   color: $grey-white;
-  :hover {
-    color: $text;
-  }
+}
+
+.fa:hover {
+  color: $buttons;
 }
 
 .icon {
@@ -29,7 +30,21 @@ input[type=checkbox]{
 }
 
 .list {
+  border: 1px solid $darker-text;
+  display: inline-block;
+  height: 100%;
+  overflow: auto;
+  padding: 0 20px;
+  margin: 10px 20px 10px 0;
+  position: relative;
+  vertical-align: top;
+  white-space: normal;
+  width: 300px;
+}
+
+.yesterday-list {
   border: 1px solid $grey;
+  background-color: rgba(255,0,0,0.2);
   display: inline-block;
   height: 100%;
   overflow: auto;
@@ -58,7 +73,7 @@ input[type=checkbox]{
 .incomplete-card {
   color: $darker-text;
   background: $background;
-  border: 1px solid ;
+  border: 1px solid $text;
   border-radius: 3px;
   box-shadow: 0 1px 0 rgba(0, 0 , 0 , .25);
   margin: 0 0 10px;
@@ -111,6 +126,7 @@ input[type=checkbox]{
 
 .input-field {
   width: 65%;
+  border-color: #bbb;
 }
 
 .submit-button {
@@ -146,7 +162,7 @@ input[type=checkbox]{
 
 .checklist__task--remove:after{
   display: inline-block;
-  color: #d66;
+  color: $buttons;
   content: "✖";
 }
 
