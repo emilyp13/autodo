@@ -15,6 +15,7 @@ class App extends Component {
       cardtags: [],
       category: ""
     };
+
   }
 
   componentDidMount() {
@@ -189,13 +190,22 @@ class App extends Component {
     })
   }
 
-  handleTagClick(tagId){
-    let cardtags = this.state.cardtags.filter((cardtag) => cardtag.tag_id === tagId);
-    let newState = this.state.cards.filter((card) => {
-      debugger;
 
-    })
+  handleTagClick(tagId){
+    let cardIds = this.state.cardtags.map((cardtag) => {
+      if (cardtag.tag_id === tagId) {
+        return(cardtag.card_id)
+      }
+    });
+
+    let newState = this.state.cards.filter((card) => cardIds.includes(card.id))
+    this.setState({cards: newState});
   }
+
+  resetTagFilter(){
+    this.getLists()
+  }
+
 
   updateCardStatus(cardId, listId) {
     let cardIndex = this.state.cards.findIndex((card)=>card.id === cardId);
@@ -281,7 +291,8 @@ class App extends Component {
             onListSubmit: this.handleListSubmit.bind(this)
           }}
           tagCallbacks={{
-            filterTags: this.handleTagClick.bind(this)
+            filterTags: this.handleTagClick.bind(this),
+            resetTags: this.resetTagFilter.bind(this)
           }}
       />
     );

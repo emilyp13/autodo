@@ -76,10 +76,10 @@ class Card extends Component {
       cardDetails = (
         <div className="card-details">
           <div>{this.props.description}</div>
-          <div>{cardtags}</div>
           <CheckList cardId={this.props.id}
                        tasks={this.props.tasks}
                        taskCallbacks={this.props.taskCallbacks}/>
+           <div className="card-tags-block">{cardtags}</div>
         </div>
       );
     }

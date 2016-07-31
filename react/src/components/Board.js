@@ -41,9 +41,12 @@ class Board extends Component {
 
     return(
       <div>
-        <TagsBlock tags={this.props.tags}
-          tagCallbacks={this.props.tagCallbacks}
-        />
+        <div>
+          <TagsBlock tags={this.props.tags}
+            tagCallbacks={this.props.tagCallbacks}
+            />
+        </div>
+        <div className="clearfix"></div>
         <div className="list-block">
           {lists}
           <span className={new_list_style}><ListForm listFormCallbacks={this.props.listFormCallbacks}/></span>
