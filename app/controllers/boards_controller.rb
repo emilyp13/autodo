@@ -25,7 +25,7 @@ class BoardsController < ApplicationController
       elsif @board.category == "kanban"
         List.generate_kanban(@board.id)
       end
-      redirect_to root_path
+      redirect_to boards_path
     else
       render :new
     end
@@ -34,7 +34,7 @@ class BoardsController < ApplicationController
   def destroy
     @board = Board.find(params[:id])
     @board.destroy
-    redirect_to root_path
+    redirect_to boards_path
   end
 
   private
