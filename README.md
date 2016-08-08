@@ -10,10 +10,10 @@
 ##Features
 
 * React Drag and Drop Component
-To drag cards across lists, I used the React DnD component. [Component Found Here](https://github.com/gaearon/react-dnd).
+>To drag cards across lists, I used the React DnD component. [Component Found Here](https://github.com/gaearon/react-dnd).
 
 * Filter Cards by Tags
-I used react to dynamically filter cards by tags.
+>I used react to dynamically filter cards by tags.
 
 * Daily Task Emails
-To receive a daily email, I used ActionMailer and Heroku Schedulizer.
+>To receive a daily email, I used ActionMailer and Heroku Schedulizer.
