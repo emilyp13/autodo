@@ -1,6 +1,12 @@
 require 'coveralls'
+require 'simplecov'
 Coveralls.wear!('rails')
 
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+])
+SimpleCov.start
 RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
